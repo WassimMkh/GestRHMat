@@ -1,6 +1,9 @@
 kifach nkhdmo had projet :
 
 - Angular :
+  nworko 3la lfichier "package.json" :
+  <img width="317" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/333963b9-31c7-48c3-82ab-0171b4bc8c94">
+  khatla3 wahed l3ayba f jenb limen nworko 3liha 
   <img width="357" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/58e6b64e-302d-444f-862d-d78f5d75b59a">
   nworko 3la "front-end" b click droit :
   ![image](https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/98a6b900-a4a0-4fbf-b5dc-322187195b37)
