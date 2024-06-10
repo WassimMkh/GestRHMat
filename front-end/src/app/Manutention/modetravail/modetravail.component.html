@@ -1,5 +1,5 @@
 <div>
-  <form>
+  <form [formGroup]="modeTravailForm" (ngSubmit)="onSubmit()">
     <div class="flex min-h-screen justify-center items-center text-white">
       <div class="inline-block p-10 rounded  backdrop-blur-md  bg-black/70 object-scale-down m-auto">
         <h1 class="mb-8 font-bold underline text-lg text-center underline-offset-4 uppercase tracking-widest">Mode de travail</h1>
@@ -7,15 +7,15 @@
           <div>
             <div>
               <div class="inline-block">
-                <label class="p-2 font-mono">Semaine:</label>
+                <label  class="form-label p-2 font-mono">Semaine:</label>
               </div>
-              <div class=" flex-auto w-32 " role="group">
+              <div class=" flex-auto w-32 " role="group" >
                 <div class="flex-auto w-32">
-                  <input type="radio"  name="sem" >
+                  <input type="radio"  name="sem" class="form-control" formControlName="semaine" value="6/7 jours">
                   <label class="p-1">6/7 jours</label>
                 </div>
                 <div class="flex-auto w-32">
-                  <input type="radio"  name="sem">
+                  <input type="radio"  name="sem" class="form-control" formControlName="semaine" value="7/7 jours">
                   <label class="p-1">7/7 jours</label>
                 </div>
               </div>
@@ -23,21 +23,21 @@
           </div>
           <div>
             <div><label class="p-6 font-mono">Jour:</label></div>
-            <div>
+            <div >
               <div>
-                <input type="radio" name="jr">
+                <input type="radio" name="jr" formControlName="jour" value="2/3 shifts">
                 <label class="p-1">2/3 shifts</label>
               </div>
               <div>
-                <input type="radio"  name="jr">
+                <input type="radio"  name="jr" formControlName="jour" value="3/3 shifts">
                 <label class="p-1">3/3 shifts</label>
               </div>
             </div>
           </div>
         </div>
         <div class=" space-x-4 my-4">
-          <button  class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Valider</button>
-          <button  class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Annuler</button>
+          <button  type="submit" class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Valider</button>
+          <button  type="button" (click)="onCancel()"  class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Annuler</button>
         </div>
       </div>
     </div>

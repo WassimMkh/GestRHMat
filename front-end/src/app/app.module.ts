@@ -5,16 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthentificationComponent } from './Administration/authentification/authentification.component';
 import {HttpClientModule, provideHttpClient} from "@angular/common/http";
+import {PeriodeshiftComponent} from "./Manutention/periodeshift/periodeshift.component";
+import {ModetravailComponent} from "./Manutention/modetravail/modetravail.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthentificationComponent,
+    ModetravailComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
     providers: [],
   bootstrap: [AppComponent]
