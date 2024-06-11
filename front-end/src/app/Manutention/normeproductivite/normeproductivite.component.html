@@ -1,0 +1,115 @@
+<div class="flex items-center justify-center min-h-screen m-auto z-auto">
+  <div class="backdrop-blur-md bg-black/70 p-5 rounded shadow-md max-w-lg w-full">
+    <h1 class="text-center text-xl font-bold mb-5 text-white">Norme de productivité</h1>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="form-group">
+        <label for="trafic" class="block mb-1 text-white">Main :</label>
+        <select id="trafic" class="w-full px-3 py-2 border rounded">
+          <option value="palette">Main 1</option>
+          <option value="bigbag">Main 2 </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mainTheorique" class="block mb-1 text-white">Trafic :</label>
+        <select id="mainTheorique" class="w-full px-3 py-2 border rounded">
+          <option value="main1">Palette</option>
+          <option value="main2">Big Bag</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="mode" class="block mb-1 text-white">Mode :</label>
+        <select id="mode" class="w-full px-3 py-2 border rounded">
+          <option value="tm">T/M</option>
+          <option value="tmshift">T/M/Shift</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="norme" class="block mb-1 text-white">Norme :</label>
+        <input type="number" id="norme" class="w-full px-3 py-2 border rounded" value="1800">
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="block mb-1 text-white">Sens :</label>
+      <div class="flex space-x-4">
+        <label class="flex items-center text-white">
+          <input type="checkbox" value="export" class="mr-2"> export
+        </label>
+        <label class="flex items-center text-white">
+          <input type="checkbox" value="import" class="mr-2"> import
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="block mb-1 text-white">Nature suivi du produit :</label>
+      <div class="flex space-x-4">
+        <label class="flex items-center text-white">
+          <input type="radio" name="natureSuivi" value="shift" class="mr-2"> Shift
+        </label>
+        <label class="flex items-center text-white">
+          <input type="radio" name="natureSuivi" value="finTravail" class="mr-2"> Fin du travail
+        </label>
+      </div>
+    </div>
+
+    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+
+    <div class="table-container mt-6 overflow-auto">
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+        <tr class="bg-gray-200">
+          <th class="px-4 py-2 border">Trafic</th>
+          <th class="px-4 py-2 border">Main théorique</th>
+          <th class="px-4 py-2 border">Mode</th>
+          <th class="px-4 py-2 border">Norme</th>
+          <th class="px-4 py-2 border">Sens</th>
+          <th class="px-4 py-2 border">Actions</th>
+        </tr>
+        </thead>
+        <tbody id="entries">
+        <tr>
+          <td class="px-4 py-2 border">Palette</td>
+          <td class="px-4 py-2 border">Main 1</td>
+          <td class="px-4 py-2 border">T/M</td>
+          <td class="px-4 py-2 border">1800</td>
+          <td class="px-4 py-2 border">Export</td>
+          <td class="px-4 py-2 border">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-2 border">Big Bag</td>
+          <td class="px-4 py-2 border">Main 1</td>
+          <td class="px-4 py-2 border">T/M/Shift</td>
+          <td class="px-4 py-2 border">2000</td>
+          <td class="px-4 py-2 border">Import</td>
+          <td class="px-4 py-2 border">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-2 border">Vrac</td>
+          <td class="px-4 py-2 border">Main 2</td>
+          <td class="px-4 py-2 border">T/M</td>
+          <td class="px-4 py-2 border">1500</td>
+          <td class="px-4 py-2 border">Export</td>
+          <td class="px-4 py-2 border">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex justify-between mt-6">
+      <button class="bg-green-500 text-white px-4 py-2 rounded">Valider</button>
+      <button class="bg-gray-500 text-white px-4 py-2 rounded">Annuler</button>
+    </div>
+  </div>
+</div>

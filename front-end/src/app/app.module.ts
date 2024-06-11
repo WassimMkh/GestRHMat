@@ -8,12 +8,16 @@ import {HttpClientModule, provideHttpClient} from "@angular/common/http";
 import {PeriodeshiftComponent} from "./Manutention/periodeshift/periodeshift.component";
 import {ModetravailComponent} from "./Manutention/modetravail/modetravail.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoadingComponent } from './loading/loading.component';
+import { NormeproductiviteComponent } from './Manutention/normeproductivite/normeproductivite.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthentificationComponent,
     ModetravailComponent,
+    LoadingComponent,
+    NormeproductiviteComponent,
   ],
   imports: [
     BrowserModule,

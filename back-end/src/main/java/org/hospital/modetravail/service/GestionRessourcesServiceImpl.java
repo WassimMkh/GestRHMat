@@ -191,6 +191,9 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     public List<Employe> getEmployesByFonction(String fonction) {
         return (List<Employe>) employeRepository.findByFonction(fonction);
     }
+
+
+
     @Override
     public void incrementShiftPlan(String periode, Date dateDebut,
                                    Date dateFin, Long modeTravailId,String shift,
@@ -294,5 +297,21 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         modeRepository.save(mode);
         mainTheoriqueRepository.save(mainTheorique);
         normeProductiviteRepository.save(normeProductivite);
+    }
+
+    @Override
+    public List<MainTheorique> getMainTheorique() {
+        return null;
+    }
+
+    @Override
+    public List<Trafic> getTraficByIdMain(Long Id) {
+        return traficRepository.findAllByIdMain(Id);
+    }
+
+
+    @Override
+    public List<Equipe> getEquipe() {
+        return null;
     }
 }

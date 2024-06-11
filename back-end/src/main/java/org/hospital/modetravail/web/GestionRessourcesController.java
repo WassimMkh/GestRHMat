@@ -3,6 +3,7 @@ package org.hospital.modetravail.web;
 import org.hospital.modetravail.entities.Employe;
 import org.hospital.modetravail.entities.NormeProductivite;
 import org.hospital.modetravail.entities.ShiftPlan;
+import org.hospital.modetravail.entities.Trafic;
 import org.hospital.modetravail.requests.*;
 import org.hospital.modetravail.service.GestionRessourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,10 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
                 normeProductiviteRequest.isExport(),
                 normeProductiviteRequest.isImprt(),normeProductiviteRequest.getSuiviProduit()
                 );
+    }
+    @GetMapping("/{mainId}")
+    public List<Trafic> getTrafic(@PathVariable("mainId") Long Id) {
+        return gestionRessourcesService.getTraficByIdMain(Id);
     }
 
 
