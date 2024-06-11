@@ -331,6 +331,14 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         return modeRepository.findAll();
     }
 
+    public List<Equipement> getEquipementByEquipementFamille(Long Id){
+        return equipementRepository.findByEquipementFamille_Id(Id);
+    }
+    public List<Accessoir> getAccessoirByEquipementFamille(Long Id){
+        return accessoirRepository.findByEquipementFamille_Id(Id);
+    }
+
+
 
 
 }

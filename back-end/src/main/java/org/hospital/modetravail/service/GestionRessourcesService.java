@@ -38,6 +38,8 @@ public interface GestionRessourcesService {
     public List<TypeTrafic>  getTypeTrafic();
     public List<Trafic> getTraficBYTypetrafic(Long id);
     public List<Mode> getMode();
+    public List<Equipement> getEquipementByEquipementFamille(Long Id);
+    public List<Accessoir> getAccessoirByEquipementFamille(Long Id);
 
 
 
