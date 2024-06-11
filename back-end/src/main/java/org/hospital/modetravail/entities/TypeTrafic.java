@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,9 @@ public class TypeTrafic {
     private Long id;
     private String type;
     @OneToMany(mappedBy = "typeTrafic")
+    @JsonIgnore
     private Collection<Trafic> trafics;
     @OneToMany(mappedBy = "typeTrafic")
+    @JsonIgnore
     private Collection<MainTheorique> mainTheorique;
 }

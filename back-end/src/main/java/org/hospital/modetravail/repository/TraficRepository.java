@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TraficRepository extends JpaRepository<Trafic, Long> {
-    @Query("SELECT trafic FROM MainTheorique trafic WHERE trafic.id=?1")
+    @Query("SELECT t FROM Trafic t JOIN t.mainTheorique mt WHERE mt.id = ?1")
     List<Trafic> findAllByIdMain(Long Id);
+
+    List<Trafic> findByTypeTrafic_Id(Long id);
 }

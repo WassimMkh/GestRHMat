@@ -1,9 +1,6 @@
 package org.hospital.modetravail.service;
 
-import org.hospital.modetravail.entities.Employe;
-import org.hospital.modetravail.entities.Equipe;
-import org.hospital.modetravail.entities.MainTheorique;
-import org.hospital.modetravail.entities.Trafic;
+import org.hospital.modetravail.entities.*;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -37,5 +34,9 @@ public interface GestionRessourcesService {
     public List<MainTheorique> getMainTheorique();
     public List<Trafic> getTraficByIdMain(Long Id);
     public List<Equipe> getEquipe();
+    public List<String> getFonctions();
+    public List<TypeTrafic>  getTypeTrafic();
+    public List<Trafic> getTraficBYTypetrafic(Long id);
+    public List<Mode> getMode();
 
     }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {ModeTravailRequest} from "../../requests/modetravail-request.model";
+import {ModeTravailRequest} from "../../models/modetravail-request.model";
 
 @Component({
   selector: 'app-modetravail',

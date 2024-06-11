@@ -1,9 +1,6 @@
 package org.hospital.modetravail.web;
 
-import org.hospital.modetravail.entities.Employe;
-import org.hospital.modetravail.entities.NormeProductivite;
-import org.hospital.modetravail.entities.ShiftPlan;
-import org.hospital.modetravail.entities.Trafic;
+import org.hospital.modetravail.entities.*;
 import org.hospital.modetravail.requests.*;
 import org.hospital.modetravail.service.GestionRessourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +35,10 @@ public class GestionRessourcesController {
     public List<Employe> getEmployesByFonction(@PathVariable("fonction") String fonction) {
         return gestionRessourcesService.getEmployesByFonction(fonction);
     }
+    @GetMapping("/fonctions")
+    public List<String> getFonctions() {
+        return gestionRessourcesService.getFonctions();
+    }
 /*    @PostMapping("/cree-shiftPlan")
 
     public void incrementShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest){
@@ -71,8 +72,8 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
         gestionRessourcesService.incrementMainTheorique(mainTheoriqueRequest.getNom(),mainTheoriqueRequest.getTypeTraficIds(),mainTheoriqueRequest.getTraficIds(),mainTheoriqueRequest.getEquipementFamilleIds(),mainTheoriqueRequest.getEquipementIds(),mainTheoriqueRequest.getAccessoireIds());
 
     }
-    @PostMapping("/cree-normeproductivite")
 
+    @PostMapping("/cree-normeproductivite")
     public void incrementNormeProductivite(@RequestBody NormeProductiviteRequest normeProductiviteRequest){
         gestionRessourcesService.incrementNormeProductivite(normeProductiviteRequest.getTraficId(),
                 normeProductiviteRequest.getMainTheoriqueId(),normeProductiviteRequest.getModeId(),
@@ -81,10 +82,15 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
                 normeProductiviteRequest.isImprt(),normeProductiviteRequest.getSuiviProduit()
                 );
     }
-    @GetMapping("/{mainId}")
-    public List<Trafic> getTrafic(@PathVariable("mainId") Long Id) {
+    @GetMapping("/maintheorique/{mainId}")
+    public List<Trafic> getTraficByIdMain(@PathVariable("mainId") Long Id) {
         return gestionRessourcesService.getTraficByIdMain(Id);
     }
+    @GetMapping("/equipes")
+    public List<Equipe> getEquipe(){
+    return gestionRessourcesService.getEquipe();
+    }
+
 
 
 }

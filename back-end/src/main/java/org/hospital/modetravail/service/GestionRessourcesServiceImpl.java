@@ -301,7 +301,7 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
 
     @Override
     public List<MainTheorique> getMainTheorique() {
-        return null;
+        return mainTheoriqueRepository.findAll();
     }
 
     @Override
@@ -312,6 +312,25 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
 
     @Override
     public List<Equipe> getEquipe() {
-        return null;
+        return equipeRepository.findAll();
     }
+    public List<String> getFonctions() {
+        return employeRepository.findDistinctFonction();
+    }
+    public List<TypeTrafic>  getTypeTrafic(){
+        return typeTraficRepository.findAll();
+    }
+
+    @Override
+    public List<Trafic> getTraficBYTypetrafic(Long id) {
+        return traficRepository.findByTypeTrafic_Id(id);
+    }
+
+
+    public List<Mode> getMode(){
+        return modeRepository.findAll();
+    }
+
+
+
 }
