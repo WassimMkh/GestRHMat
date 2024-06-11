@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,10 @@ public class NormeProductivite {
     private Mode mode;
     private int norme;
     @ManyToOne
+    @JsonIgnore
     private MainTheorique mainTheorique;
     @ManyToOne
+    @JsonIgnore
     private Trafic trafic;
 
 }

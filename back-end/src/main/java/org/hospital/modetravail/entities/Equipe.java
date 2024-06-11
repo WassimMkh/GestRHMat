@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Equipe {
     private String nom;
     private String responsable;
     @OneToMany(mappedBy = "equipe")
+    @JsonIgnore
     private Collection<Employe> employes;
     @OneToOne
     private ShiftPlan shiftPlan;

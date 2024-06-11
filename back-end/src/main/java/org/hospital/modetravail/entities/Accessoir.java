@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,9 @@ public class Accessoir {
     private String nom;
     private int quantite;
     @ManyToOne
+    @JsonIgnore
     private EquipementFamille equipementFamille;
     @ManyToOne
+    @JsonIgnore
     private MainTheorique mainTheorique;
 }

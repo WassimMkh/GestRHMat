@@ -82,15 +82,18 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
                 normeProductiviteRequest.isImprt(),normeProductiviteRequest.getSuiviProduit()
                 );
     }
-    @GetMapping("/maintheorique/{mainId}")
-    public List<Trafic> getTraficByIdMain(@PathVariable("mainId") Long Id) {
-        return gestionRessourcesService.getTraficByIdMain(Id);
+    @GetMapping("/maintheorique/{mainName}")
+    public List<Trafic> getTraficByMainName(@PathVariable("mainName") String mainName) {
+        return gestionRessourcesService.getTraficByMainName(mainName);
     }
     @GetMapping("/equipes")
     public List<Equipe> getEquipe(){
     return gestionRessourcesService.getEquipe();
     }
-
+    @GetMapping("/maintheorique")
+    public List<MainTheorique> getMainTheorique() {
+        return gestionRessourcesService.getMainTheorique();
+    }
 
 
 }

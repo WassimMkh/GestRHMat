@@ -32,11 +32,13 @@ public interface GestionRessourcesService {
                                            boolean imprt,String suiviProduit);
     public List<Employe> getEmployesByFonction(String fonction);
     public List<MainTheorique> getMainTheorique();
-    public List<Trafic> getTraficByIdMain(Long Id);
+    public List<Trafic> getTraficByMainName(String mainNom);
     public List<Equipe> getEquipe();
     public List<String> getFonctions();
     public List<TypeTrafic>  getTypeTrafic();
     public List<Trafic> getTraficBYTypetrafic(Long id);
     public List<Mode> getMode();
+
+
 
     }

@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class Employe {
     private String nom;
     private String fonction;
     @ManyToOne
+    @JsonIgnore
     private Equipe equipe;
 }

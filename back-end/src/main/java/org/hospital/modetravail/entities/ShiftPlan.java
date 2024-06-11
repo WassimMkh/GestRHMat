@@ -1,5 +1,6 @@
 package org.hospital.modetravail.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class ShiftPlan {
     @OneToOne
     private Equipe equipe;
     @ManyToOne
+    @JsonIgnore
     private ModeTravail modeTravail;
 
 }

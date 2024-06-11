@@ -305,8 +305,8 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     }
 
     @Override
-    public List<Trafic> getTraficByIdMain(Long Id) {
-        return traficRepository.findAllByIdMain(Id);
+    public List<Trafic> getTraficByMainName(String mainName) {
+        return traficRepository.findAllByMainName(mainName);
     }
 
 
