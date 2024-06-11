@@ -90,7 +90,13 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     public List<Equipe> getEquipe(){
     return gestionRessourcesService.getEquipe();
     }
-
-
+    @GetMapping("/equipement/{equipFId}")
+    public List<Equipement> getEquipementByEquipementFamille(@PathVariable("equipFId") Long Id){
+    return gestionRessourcesService.getEquipementByEquipementFamille(Id);
+    }
+    @GetMapping("/accessoir/{equipFId}")
+    public List<Accessoir>  getAccessoirByEquipementFamille(@PathVariable("equipFId") Long Id){
+    return gestionRessourcesService.getAccessoirByEquipementFamille(Id);
+    }
 
 }
