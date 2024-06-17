@@ -10,7 +10,7 @@ export class TraficserviceService {
   host : string = "http://localhost:8088"
   constructor(private http:HttpClient) { }
 
-  getTraficName(mainName : string) : Observable<traficRequest[]> {
-    return this.http.get<traficRequest[]>(`${this.host}/maintheorique/${mainName}`);
+  getTraficName(mainId : number) : Observable<traficRequest[]> {
+    return this.http.get<traficRequest[]>(`${this.host}/maintheorique/${mainId}`);
   }
 }

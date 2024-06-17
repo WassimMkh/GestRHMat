@@ -3,6 +3,11 @@ import {TraficserviceService} from "../../services/traficservice.service";
 import {MaintheoriqueService} from "../../services/maintheorique.service";
 import {mainTheoriqueRequest} from "../../models/maintheorique-request.model";
 import {traficRequest} from "../../models/trafic-request.model";
+import {ModeService} from "../../services/mode.service";
+import {ModeRequest} from "../../models/mode-request.model";
+import {NormeProductiviteService} from "../../services/norme-productivite.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NormeproductRequest} from "../../models/normeproduct-request.model";
 
 @Component({
   selector: 'app-normeproductivite',
@@ -12,42 +17,86 @@ import {traficRequest} from "../../models/trafic-request.model";
 export class NormeproductiviteComponent  implements OnInit{
 
   mainsTheoriques! : Array<mainTheoriqueRequest>;
-  selectedMainId: any;
   trafics! : Array<traficRequest>;
+  modes! : Array<ModeRequest>
+  normeForm!: FormGroup
 
-  constructor(private traficService : TraficserviceService, private mainTheoriqueService : MaintheoriqueService) {
+
+  constructor(private traficService : TraficserviceService,
+              private mainTheoriqueService : MaintheoriqueService,
+              private modeService : ModeService,
+              private normeProductiviteService : NormeProductiviteService,
+              private fb : FormBuilder) {
   }
 
   ngOnInit() {
+    this.initForm()
     this.getMainTheoriques();
+    this.getMode();
   }
-
+  initForm() {
+    this.normeForm = this.fb.group({
+      mainTheoriqueId: ['', Validators.required],
+      traficId: ['', Validators.required],
+      modeId: ['', Validators.required],
+      norme: [1800, Validators.required],
+      sens: ['export', Validators.required],
+      suiviProduit: ['shift', Validators.required]
+    });
+  }
   getMainTheoriques() {
     this.mainTheoriqueService.getMainsTheoriques().subscribe({
       next : value =>{
         this.mainsTheoriques = value;
         if (this.mainsTheoriques.length > 0) {
-          this.selectedMainId = this.mainsTheoriques[0].nom;
-          this.fetchTraficNames(this.selectedMainId);
+          this.normeForm.patchValue({
+            mainTheoriqueId : this.mainsTheoriques[0].id
+          });
+          this.fetchTraficNames(this.mainsTheoriques[0].id)
         }
       }
     })
   }
 
   onMaintheoriqueChange() {
-    if (this.selectedMainId) {
-      this.fetchTraficNames(this.selectedMainId);
+    const selectedMainId = this.normeForm.get('mainTheoriqueId')?.value;
+    console.log(selectedMainId)
+    if (selectedMainId) {
+      this.fetchTraficNames(selectedMainId);
     }
   }
-  fetchTraficNames(mainTheoriqueName: string) {
-    this.traficService.getTraficName(mainTheoriqueName).subscribe({
+
+  fetchTraficNames(mainTheoriqueId: number) {
+
+    this.traficService.getTraficName(mainTheoriqueId).subscribe({
       next: value => {
         this.trafics = value;
-        console.log('Trafic Names:', this.trafics);
+        if (this.trafics.length > 0) {
+          this.normeForm.patchValue({
+            traficId : this.trafics[0].id
+          })
+        }
       },
       error: err => {
         console.error('Error fetching trafics:', err);
       }
     });
   }
+  getMode() {
+    this.modeService.getMode().subscribe({
+      next : value => {
+        this.modes = value;
+      }
+    })
+  }
+
+  SaveNormProduct() {
+    if (this.normeForm.valid) {
+      console.log('Form Submitted', this.normeForm.value);
+      // Handle form submission logic
+    } else {
+      console.error('Form is invalid');
+    }
+  }
+
 }
