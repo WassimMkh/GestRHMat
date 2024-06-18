@@ -1,15 +1,20 @@
 package org.hospital.modetravail.web;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.hospital.modetravail.entities.*;
+import org.hospital.modetravail.repository.ModeRepository;
 import org.hospital.modetravail.requests.*;
 import org.hospital.modetravail.service.GestionRessourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -74,17 +79,32 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     }
 
     @PostMapping("/cree-normeproductivite")
-    public void incrementNormeProductivite(@RequestBody NormeProductiviteRequest normeProductiviteRequest){
-        gestionRessourcesService.incrementNormeProductivite(normeProductiviteRequest.getTraficId(),
-                normeProductiviteRequest.getMainTheoriqueId(),normeProductiviteRequest.getModeId(),
-                normeProductiviteRequest.getNorme(),
-                normeProductiviteRequest.isExport(),
-                normeProductiviteRequest.isImprt(),normeProductiviteRequest.getSuiviProduit()
-                );
+    public ResponseEntity<NormeProductiviteRequest> incrementNormeProductivite(@RequestBody NormeProductiviteRequest normeProductiviteRequest) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            gestionRessourcesService.incrementNormeProductivite(normeProductiviteRequest.getTraficId(),
+                    normeProductiviteRequest.getMainTheoriqueId(), normeProductiviteRequest.getModeId(),
+                    normeProductiviteRequest.getNorme(),
+                    normeProductiviteRequest.getSens(),
+                    normeProductiviteRequest.getSuiviProduit());
+            return ResponseEntity.ok(normeProductiviteRequest);
+        } catch (EntityNotFoundException e) {
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("error", "An error occurred: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
-    @GetMapping("/maintheorique/{mainName}")
-    public List<Trafic> getTraficByMainName(@PathVariable("mainName") String mainName) {
-        return gestionRessourcesService.getTraficByMainName(mainName);
+
+
+
+
+
+    @GetMapping("/maintheorique/{mainId}")
+    public List<Trafic> getTraficByMainId(@PathVariable("mainId") Long id) {
+        return gestionRessourcesService.getTraficByMainId(id);
     }
     @GetMapping("/equipes")
     public List<Equipe> getEquipe(){
@@ -94,6 +114,12 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     public List<MainTheorique> getMainTheorique() {
         return gestionRessourcesService.getMainTheorique();
     }
-
-
+    @GetMapping("/modes")
+    public List<Mode> getMode() {
+        return  gestionRessourcesService.getMode();
+    }
+    @GetMapping("/norme_productivite")
+    public List<NormeProductivite> getNormeProductivite() {
+        return gestionRessourcesService.getNormeProductivite();
+    }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NormeproductRequest} from "../models/normeproduct-request.model";
+import {Observable} from "rxjs";
 
 
 
@@ -12,7 +13,10 @@ export class NormeProductiviteService {
 
   constructor(private http: HttpClient) { }
 
-  addNormeProductivite(normeProductivite : NormeproductRequest) {
-    return this.http.post(`${this.host}/cree-normeproductivite`,normeProductivite)
+  addNormeProductivite(normeProductivite : NormeproductRequest): Observable<NormeproductRequest> {
+    return this.http.post<NormeproductRequest>(`${this.host}/cree-normeproductivite`,normeProductivite,{responseType : "json"})
+  }
+  getNormeProductivite() : Observable<NormeproductRequest[]> {
+    return this.http.get<NormeproductRequest[]>(`${this.host}/norme_productivite`);
   }
 }

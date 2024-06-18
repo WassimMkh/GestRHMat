@@ -1,42 +1,39 @@
 <div class=" flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto">
   <div class="flex gap-4 items-center justify-around w-full">
-    <div class="p-5  backdrop-blur-md bg-black/70 rounded ">
+    <form [formGroup]="normeForm" (ngSubmit)="SaveNormProduct()" class="flex gap-4 p-5 backdrop-blur-md bg-black/70 rounded">
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="form-group">
           <label for="trafic" class="block mb-1 text-white">Main :</label>
-          <select id="trafic" class="w-full px-3 py-2 border rounded" [(ngModel)]="selectedMainId" (change)="onMaintheoriqueChange()">
-            <option *ngFor="let maintheorique of mainsTheoriques">{{maintheorique.nom}}</option>
+          <select id="trafic" class="w-full px-3 py-2 border rounded" formControlName="mainTheoriqueId" (change)="onMaintheoriqueChange()" required>
+            <option *ngFor="let maintheorique of mainsTheoriques" [value]="maintheorique.id">{{maintheorique.nom}}</option>
           </select>
         </div>
         <div class="form-group">
           <label for="mainTheorique" class="block mb-1 text-white">Trafic :</label>
-          <select id="mainTheorique" class="w-full px-3 py-2 border rounded">
-            <option *ngFor="let trafic of trafics">{{trafic.name}}</option>
+          <select id="mainTheorique" class="w-full px-3 py-2 border rounded" formControlName="traficId" required>
+            <option *ngFor="let trafic of trafics" [value]="trafic.id">{{trafic.name}}</option>
           </select>
         </div>
         <div class="form-group">
           <label for="mode" class="block mb-1 text-white">Mode :</label>
-          <select id="mode" class="w-full px-3 py-2 border rounded">
-            <option value="tm">T/M</option>
-            <option value="tmshift">T/M/Shift</option>
+          <select id="mode" class="w-full px-3 py-2 border rounded" formControlName="modeId" required>
+            <option *ngFor="let mode of modes" [value]="mode.id">{{mode.nom}}</option>
           </select>
         </div>
         <div class="form-group">
           <label for="norme" class="block mb-1 text-white">Norme :</label>
-          <input type="number" id="norme" class="w-full px-3 py-2 border rounded" value="1800">
+          <input type="number" id="norme" class="w-full px-3 py-2 border rounded" formControlName="norme" required>
         </div>
       </div>
-    </div>
-    <div class="flex items-center justify-center">
-      <div class="p-5 backdrop-blur-md bg-black/70 rounded">
+      <div class="p-5">
         <div class="form-group mb-4">
           <label class="block mb-1 text-white">Sens :</label>
           <div class="flex space-x-4">
             <label class="flex items-center text-white">
-              <input type="checkbox" value="export" class="mr-2"> export
+              <input type="radio" value="export" class="mr-2" formControlName="sens" required> export
             </label>
             <label class="flex items-center text-white">
-              <input type="checkbox" value="import" class="mr-2"> import
+              <input type="radio" value="import" class="mr-2" formControlName="sens" required> import
             </label>
           </div>
         </div>
@@ -44,22 +41,31 @@
           <label class="block mb-1 text-white">Nature suivi du produit :</label>
           <div class="flex space-x-4">
             <label class="flex items-center text-white">
-              <input type="radio" name="natureSuivi" value="shift" class="mr-2"> Shift
+              <input type="radio" value="shift" class="mr-2" formControlName="suiviProduit" required> Shift
             </label>
             <label class="flex items-center text-white">
-              <input type="radio" name="natureSuivi" value="finTravail" class="mr-2"> Fin du travail
+              <input type="radio" value="finTravail" class="mr-2" formControlName="suiviProduit" required> Fin du travail
             </label>
           </div>
         </div>
-        <div class="flex items-center justify-center">
-          <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
-        </div>
       </div>
-    </div>
+      <div class="flex items-center justify-center">
+        <button type="submit"  class="bg-blue-500 text-white px-4 py-2 rounded transform transition-transform duration-100 ease-in-out mx-4"
+                [ngClass]="{
+                              'active:translate-y-1 active:shadow-inner': normeForm.valid,
+                              'bg-gray-400 cursor-not-allowed': normeForm.invalid
+                          }"
+                [disabled]="normeForm.invalid">
+                Ajouter
+        </button>
+        <app-loading></app-loading>
+      </div>
+    </form>
   </div>
+
   <div class="w-10/12 h-full rounded backdrop-blur-md bg-black/70">
-    <div class="table-container mt-6 overflow-auto p-6">
-      <table class=" bg-white border border-gray-300 w-full" >
+    <div class="table-container rounded overflow-y-auto h-50 border border-gray-300">
+      <table class="bg-white border-collapse w-full">
         <thead>
         <tr class="bg-gray-200">
           <th class="px-4 py-2 border">Trafic</th>
@@ -70,41 +76,22 @@
           <th class="px-4 py-2 border">Actions</th>
         </tr>
         </thead>
-        <tbody id="entries">
-        <tr>
-          <td class="px-4 py-2 border">Palette</td>
-          <td class="px-4 py-2 border">Main 1</td>
-          <td class="px-4 py-2 border">T/M</td>
-          <td class="px-4 py-2 border">1800</td>
-          <td class="px-4 py-2 border">Export</td>
+        <tbody>
+        <tr *ngFor="let norme of normesProductivites | paginate: { itemsPerPage: 3, currentPage: p }">
+          <td class="px-4 py-2 border">{{ norme.trafic?.name }}</td>
+          <td class="px-4 py-2 border">{{ norme.mainTheorique?.nom }}</td>
+          <td class="px-4 py-2 border">{{ norme.mode?.nom }}</td>
+          <td class="px-4 py-2 border">{{ norme.norme }}</td>
+          <td class="px-4 py-2 border">{{ norme.sens }}</td>
           <td class="px-4 py-2 border">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="px-4 py-2 border">Big Bag</td>
-          <td class="px-4 py-2 border">Main 1</td>
-          <td class="px-4 py-2 border">T/M/Shift</td>
-          <td class="px-4 py-2 border">2000</td>
-          <td class="px-4 py-2 border">Import</td>
-          <td class="px-4 py-2 border">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded ">Edit</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="px-4 py-2 border">Vrac</td>
-          <td class="px-4 py-2 border">Main 2</td>
-          <td class="px-4 py-2 border">T/M</td>
-          <td class="px-4 py-2 border">1500</td>
-          <td class="px-4 py-2 border">Export</td>
-          <td class="px-4 py-2 border">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</button>
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded mx-4">Edit</button>
             <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
           </td>
         </tr>
         </tbody>
+        <div class="bg-white border-collapse w-full rounded">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
       </table>
     </div>
   </div>

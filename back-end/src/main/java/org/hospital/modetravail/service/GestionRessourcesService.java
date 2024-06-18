@@ -28,11 +28,10 @@ public interface GestionRessourcesService {
     public void incrementMainTheorique(String nom,Long typeTraficIds, List<Long> traficIds,List<Long> equipementFamilleIds, List<Long> equipementIds, List<Long> accessoireIds);
     public void incrementNormeProductivite(Long traficId, Long mainTheoriqueId,
                                            Long modeId,
-                                           int norme,boolean export,
-                                           boolean imprt,String suiviProduit);
+                                           int norme,String sens,String suiviProduit);
     public List<Employe> getEmployesByFonction(String fonction);
     public List<MainTheorique> getMainTheorique();
-    public List<Trafic> getTraficByMainName(String mainNom);
+    public List<Trafic> getTraficByMainId(Long id);
     public List<Equipe> getEquipe();
     public List<String> getFonctions();
     public List<TypeTrafic>  getTypeTrafic();
@@ -40,7 +39,7 @@ public interface GestionRessourcesService {
     public List<Mode> getMode();
     public List<Equipement> getEquipementByEquipementFamille(Long Id);
     public List<Accessoir> getAccessoirByEquipementFamille(Long Id);
+    public List<NormeProductivite> getNormeProductivite();
 
 
-
-    }
+}

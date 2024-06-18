@@ -6,12 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NormeProductiviteRequest {
+    private Long id;
     private Long traficId;
     private Long mainTheoriqueId;
     private Long modeId;
     private int norme;
-    private boolean export;
-    private boolean imprt;
+    private String sens;
     private String suiviProduit;
 
 }
+

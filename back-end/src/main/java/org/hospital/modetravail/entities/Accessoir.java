@@ -1,3 +1,4 @@
+
 package org.hospital.modetravail.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

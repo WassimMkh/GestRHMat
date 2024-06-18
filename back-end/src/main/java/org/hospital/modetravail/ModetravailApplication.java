@@ -15,13 +15,13 @@ public class ModetravailApplication implements CommandLineRunner {
         SpringApplication.run(ModetravailApplication.class, args);
     }
     public void run(String... args) throws Exception {
-//        gestionRessourcesService.initTypeTrafics();
-//        gestionRessourcesService.initTrafics();
-//        gestionRessourcesService.initEmployes();
-//        gestionRessourcesService.initEquipementFamilles();
-//        gestionRessourcesService.initEquipemnts();
-//        gestionRessourcesService.initAccessoirs();
-//        gestionRessourcesService.initMode();
+        //gestionRessourcesService.initTypeTrafics();
+        //gestionRessourcesService.initTrafics();
+        //gestionRessourcesService.initEmployes();
+        //gestionRessourcesService.initEquipementFamilles();
+        //gestionRessourcesService.initEquipemnts();
+        //gestionRessourcesService.initAccessoirs();
+        //gestionRessourcesService.initMode();
 
 
     }

@@ -14,17 +14,14 @@ public class NormeProductivite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean export;
-    private boolean imprt;
+    private String sens;
     private String suiviProduit;
-    @OneToOne(mappedBy = "normeProductivite")
+    @ManyToOne
     private Mode mode;
     private int norme;
     @ManyToOne
-    @JsonIgnore
     private MainTheorique mainTheorique;
     @ManyToOne
-    @JsonIgnore
     private Trafic trafic;
 
 }

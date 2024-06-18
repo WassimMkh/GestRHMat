@@ -44,37 +44,37 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     NormeProductiviteRepository normeProductiviteRepository;
 
     public void initTypeTrafics() {
-            Stream.of("Sacherie et divers","Vrac","Conteneur")
-                    .forEach(typeT->{
-                        TypeTrafic typeTrafic=new TypeTrafic();
-                        typeTrafic.setType(typeT);
-                        typeTraficRepository.save(typeTrafic);
-                    });
+        Stream.of("Sacherie et divers","Vrac","Conteneur")
+                .forEach(typeT->{
+                    TypeTrafic typeTrafic=new TypeTrafic();
+                    typeTrafic.setType(typeT);
+                    typeTraficRepository.save(typeTrafic);
+                });
 
     }
 
     public void initTrafics() {
 
-            TypeTrafic sacherie = typeTraficRepository.findByType("Sacherie et divers");
-            TypeTrafic vrac = typeTraficRepository.findByType("Vrac");
-            TypeTrafic conteneur = typeTraficRepository.findByType("Conteneur");
+        TypeTrafic sacherie = typeTraficRepository.findByType("Sacherie et divers");
+        TypeTrafic vrac = typeTraficRepository.findByType("Vrac");
+        TypeTrafic conteneur = typeTraficRepository.findByType("Conteneur");
 
-            // Create and associate Trafic instances
-            List<Trafic> trafics = Arrays.asList(
-                    new Trafic(null, "Pallette", sacherie,null,null),
-                    new Trafic(null, "Big Bag", sacherie,null,null),
-                    new Trafic(null, "Cartons", sacherie,null,null),
-                    new Trafic(null, "Sacs", sacherie,null,null),
-                    new Trafic(null, "Céréales", vrac,null,null),
-                    new Trafic(null, "Minerais", vrac,null,null),
-                    new Trafic(null, "Produits Chimiques", vrac,null,null),
-                    new Trafic(null, "Agrégats", vrac,null,null),
-                    new Trafic(null, "20 pieds", conteneur,null,null),
-                    new Trafic(null, "40 pieds", conteneur,null,null),
-                    new Trafic(null, "Reefer", conteneur,null,null),
-                    new Trafic(null, "Open Top", conteneur,null,null)
-            );
-            traficRepository.saveAll(trafics);
+        // Create and associate Trafic instances
+        List<Trafic> trafics = Arrays.asList(
+                new Trafic(null, "Pallette", sacherie,null,null),
+                new Trafic(null, "Big Bag", sacherie,null,null),
+                new Trafic(null, "Cartons", sacherie,null,null),
+                new Trafic(null, "Sacs", sacherie,null,null),
+                new Trafic(null, "Céréales", vrac,null,null),
+                new Trafic(null, "Minerais", vrac,null,null),
+                new Trafic(null, "Produits Chimiques", vrac,null,null),
+                new Trafic(null, "Agrégats", vrac,null,null),
+                new Trafic(null, "20 pieds", conteneur,null,null),
+                new Trafic(null, "40 pieds", conteneur,null,null),
+                new Trafic(null, "Reefer", conteneur,null,null),
+                new Trafic(null, "Open Top", conteneur,null,null)
+        );
+        traficRepository.saveAll(trafics);
 
     }
     public void initEmployes() {
@@ -199,7 +199,7 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
                                    Date dateFin, Long modeTravailId,String shift,
                                    Long equipeIds){
         ModeTravail modeTravail = modeTravailRepository.findById(modeTravailId).orElseThrow(()
-                 -> new EntityNotFoundException("not found with id " ));
+                -> new EntityNotFoundException("not found with id " ));
         ;
         Equipe equipes = equipeRepository.findById(equipeIds).orElseThrow(()
                 -> new EntityNotFoundException("not found with id " ));
@@ -218,9 +218,9 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         }
         shiftPlans.add(shiftPlan);
 
-       modeTravailRepository.save(modeTravail);
-       equipeRepository.save(equipes);
-       shiftPlanRepository.save(shiftPlan);
+        modeTravailRepository.save(modeTravail);
+        equipeRepository.save(equipes);
+        shiftPlanRepository.save(shiftPlan);
     }
 
     @Override
@@ -273,11 +273,10 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
 
 
 
-@Override
+    @Override
     public void incrementNormeProductivite(Long traficId, Long mainTheoriqueId,
                                            Long modeId,
-                                           int norme,boolean export,
-                                           boolean imprt,String suiviProduit){
+                                           int norme,String sens,String suiviProduit){
         Trafic trafic=traficRepository.findById(traficId).orElseThrow(()
                 -> new EntityNotFoundException("not found with id " ));
         MainTheorique mainTheorique=mainTheoriqueRepository
@@ -287,8 +286,7 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
                 -> new EntityNotFoundException("not found with id " ));
         NormeProductivite normeProductivite=new NormeProductivite();
         normeProductivite.setNorme(norme);
-        normeProductivite.setImprt(imprt);
-        normeProductivite.setExport(export);
+        normeProductivite.setSens(sens);
         normeProductivite.setMainTheorique(mainTheorique);
         normeProductivite.setSuiviProduit(suiviProduit);
         normeProductivite.setTrafic(trafic);
@@ -305,8 +303,8 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     }
 
     @Override
-    public List<Trafic> getTraficByMainName(String mainName) {
-        return traficRepository.findAllByMainName(mainName);
+    public List<Trafic> getTraficByMainId(Long id) {
+        return traficRepository.findAllByMainId(id);
     }
 
 
@@ -338,7 +336,8 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         return accessoirRepository.findByEquipementFamille_Id(Id);
     }
 
-
-
-
+    @Override
+    public List<NormeProductivite> getNormeProductivite() {
+        return normeProductiviteRepository.findAll();
+    }
 }

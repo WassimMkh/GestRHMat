@@ -9,6 +9,7 @@ import {NormeProductiviteService} from "../../services/norme-productivite.servic
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NormeproductRequest} from "../../models/normeproduct-request.model";
 
+
 @Component({
   selector: 'app-normeproductivite',
   templateUrl: './normeproductivite.component.html',
@@ -20,8 +21,9 @@ export class NormeproductiviteComponent  implements OnInit{
   trafics! : Array<traficRequest>;
   modes! : Array<ModeRequest>
   normeForm!: FormGroup
-
-
+  normesProductivites! : Array<NormeproductRequest>
+  p : number = 1;
+  totalItems: number = 0;
   constructor(private traficService : TraficserviceService,
               private mainTheoriqueService : MaintheoriqueService,
               private modeService : ModeService,
@@ -33,6 +35,7 @@ export class NormeproductiviteComponent  implements OnInit{
     this.initForm()
     this.getMainTheoriques();
     this.getMode();
+    this.getNormProduct();
   }
   initForm() {
     this.normeForm = this.fb.group({
@@ -92,11 +95,37 @@ export class NormeproductiviteComponent  implements OnInit{
 
   SaveNormProduct() {
     if (this.normeForm.valid) {
-      console.log('Form Submitted', this.normeForm.value);
-      // Handle form submission logic
+      this.normeProductiviteService.addNormeProductivite(this.normeForm.value).subscribe({
+        next: value => {
+          this.getNormProduct();
+          console.log(this.normesProductivites)
+          this.totalItems = this.normesProductivites.length;
+          this.normeForm.reset({
+            mainTheoriqueId: this.mainsTheoriques.length > 0 ? this.mainsTheoriques[0].id : '',
+            traficId: this.trafics.length > 0 ? this.trafics[0].id : '',
+            modeId: this.modes.length > 0 ? this.modes[0].id : '',
+            norme: 1800,
+            sens: 'export',
+            suiviProduit: 'shift'
+          });
+        },
+        error: err => {
+          console.error('Error adding norme productivite:', err);
+          console.log('Error response:', err.error);
+        }
+      });
     } else {
       console.error('Form is invalid');
     }
   }
+  getNormProduct() {
+    this.normeProductiviteService.getNormeProductivite().subscribe({
+      next : value => {
+        this.normesProductivites = value;
+        console.log(this.normesProductivites)
+      }
+    })
+  }
+
 
 }
