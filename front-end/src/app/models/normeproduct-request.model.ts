@@ -4,6 +4,7 @@ import {ModeRequest} from "./mode-request.model";
 
 
 export interface NormeproductRequest {
+  id : number
   trafic : traficRequest,
   mainTheorique : mainTheoriqueRequest,
   mode : ModeRequest,

@@ -24,6 +24,9 @@ export class NormeproductiviteComponent  implements OnInit{
   normesProductivites! : Array<NormeproductRequest>
   p : number = 1;
   totalItems: number = 0;
+  isEditMode: boolean = false;
+  currentNormeId: number | null = null;
+  normeProductId! : number;
   constructor(private traficService : TraficserviceService,
               private mainTheoriqueService : MaintheoriqueService,
               private modeService : ModeService,
@@ -63,7 +66,6 @@ export class NormeproductiviteComponent  implements OnInit{
 
   onMaintheoriqueChange() {
     const selectedMainId = this.normeForm.get('mainTheoriqueId')?.value;
-    console.log(selectedMainId)
     if (selectedMainId) {
       this.fetchTraficNames(selectedMainId);
     }
@@ -74,7 +76,7 @@ export class NormeproductiviteComponent  implements OnInit{
     this.traficService.getTraficName(mainTheoriqueId).subscribe({
       next: value => {
         this.trafics = value;
-        if (this.trafics.length > 0) {
+        if (!this.normeForm.get("traficId")?.value) {
           this.normeForm.patchValue({
             traficId : this.trafics[0].id
           })
@@ -93,27 +95,37 @@ export class NormeproductiviteComponent  implements OnInit{
     })
   }
 
-  SaveNormProduct() {
+  SaveOrUpdateNormProduct() {
     if (this.normeForm.valid) {
-      this.normeProductiviteService.addNormeProductivite(this.normeForm.value).subscribe({
-        next: value => {
-          this.getNormProduct();
-          console.log(this.normesProductivites)
-          this.totalItems = this.normesProductivites.length;
-          this.normeForm.reset({
-            mainTheoriqueId: this.mainsTheoriques.length > 0 ? this.mainsTheoriques[0].id : '',
-            traficId: this.trafics.length > 0 ? this.trafics[0].id : '',
-            modeId: this.modes.length > 0 ? this.modes[0].id : '',
-            norme: 1800,
-            sens: 'export',
-            suiviProduit: 'shift'
-          });
-        },
-        error: err => {
-          console.error('Error adding norme productivite:', err);
-          console.log('Error response:', err.error);
-        }
-      });
+      if (!this.isEditMode) {
+        this.normeProductiviteService.addNormeProductivite(this.normeForm.value).subscribe({
+          next: value => {
+            this.getNormProduct();
+            console.log(this.normesProductivites)
+            this.totalItems = this.normesProductivites.length;
+            this.normeForm.reset({
+              mainTheoriqueId: this.mainsTheoriques.length > 0 ? this.mainsTheoriques[0].id : '',
+              traficId: this.trafics.length > 0 ? this.trafics[0].id : '',
+              modeId: this.modes.length > 0 ? this.modes[0].id : '',
+              norme: 1800,
+              sens: 'export',
+              suiviProduit: 'shift'
+            });
+          },
+          error: err => {
+            console.error('Error adding norme productivite:', err);
+            console.log('Error response:', err.error);
+          }
+        });
+      } else {
+        console.log(this.normeProductId,this.normeForm.value)
+        this.normeProductiviteService.updateNormeProductivite(this.normeProductId,this.normeForm.value).subscribe({
+          next : value => {
+            this.getNormProduct();
+            console.log(this.normesProductivites)
+          }
+        });
+      }
     } else {
       console.error('Form is invalid');
     }
@@ -127,5 +139,39 @@ export class NormeproductiviteComponent  implements OnInit{
     })
   }
 
+  deleteNormProduct(normeProductId : number) {
+    if (confirm("Etes vous sure ?")) {
+      this.normeProductiviteService.deleteNormeProductivite(normeProductId).subscribe({
+        next : value => {
+          this.getNormProduct();
+          if (this.normesProductivites.length === (this.p - 1) * 3 + 1 && this.p > 1) {
+            this.p -= 1;
+          }
+        },
+        error : err => {
+          console.log(err);
+        }
+        }
+      )
+    }
+  }
+
+  editNormProduct(norme: NormeproductRequest) {
+    this.normeForm.patchValue({
+      mainTheoriqueId: norme.mainTheorique?.id,
+      traficId: norme.trafic?.id,
+      modeId: norme.mode?.id,
+      norme: norme.norme,
+      sens: norme.sens,
+      suiviProduit: norme.suiviProduit
+    });
+    if (norme.mainTheorique?.id) {
+      this.fetchTraficNames(norme.mainTheorique.id);
+    }
+    console.log(this.normeForm.value)
+    this.normeProductId = norme.id;
+    this.isEditMode = true;
+    this.currentNormeId = norme.id;
+  }
 
 }

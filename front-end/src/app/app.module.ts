@@ -16,6 +16,8 @@ import {NgxPaginationModule} from "ngx-pagination";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatProgressBarModule} from "@angular/material/progress-bar"
 import {LoadingInterceptorInterceptor} from "./Interceptors/loading-interceptor.interceptor";
+import { FooterComponent } from './footer/footer.component';
+import {EquipeComponent} from "./Manutention/equipe/equipe.component";
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -26,6 +28,9 @@ export function kcFactory(kcService : KeycloakService)  {
     ModetravailComponent,
     LoadingComponent,
     NormeproductiviteComponent,
+    FooterComponent,
+    PeriodeshiftComponent,
+    EquipeComponent
   ],
   imports: [
     BrowserModule,

@@ -2,9 +2,11 @@ package org.hospital.modetravail.requests;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class NormeProductiviteRequest {
     private Long id;
     private Long traficId;

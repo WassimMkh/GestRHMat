@@ -1,6 +1,6 @@
 <div class=" flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto">
   <div class="flex gap-4 items-center justify-around w-full">
-    <form [formGroup]="normeForm" (ngSubmit)="SaveNormProduct()" class="flex gap-4 p-5 backdrop-blur-md bg-black/70 rounded">
+    <form [formGroup]="normeForm" (ngSubmit)="SaveOrUpdateNormProduct() " class="flex gap-4 p-5 backdrop-blur-md bg-black/70 rounded">
       <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="form-group">
           <label for="trafic" class="block mb-1 text-white">Main :</label>
@@ -56,7 +56,7 @@
                               'bg-gray-400 cursor-not-allowed': normeForm.invalid
                           }"
                 [disabled]="normeForm.invalid">
-                Ajouter
+          {{ isEditMode ? 'Update' : 'Ajouter' }}
         </button>
         <app-loading></app-loading>
       </div>
@@ -84,8 +84,8 @@
           <td class="px-4 py-2 border">{{ norme.norme }}</td>
           <td class="px-4 py-2 border">{{ norme.sens }}</td>
           <td class="px-4 py-2 border">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded mx-4">Edit</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded mx-4 transition transform active:scale-95" (click)="editNormProduct(norme)" >Edit</button>
+            <button (click)="deleteNormProduct(norme.id)" class="bg-red-500 text-white px-2 py-1 rounded transition transform active:scale-95">Delete</button>
           </td>
         </tr>
         </tbody>

@@ -5,6 +5,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import org.hospital.modetravail.entities.*;
 import org.hospital.modetravail.repository.*;
+import org.hospital.modetravail.requests.NormeProductiviteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -171,6 +172,10 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         ModeTravail modeTravail = new ModeTravail();
         modeTravail.setSemaine(semaine);
         modeTravail.setJour(jour);
+        if (modeTravailRepository.count() > 0) {
+            modeTravailRepository.deleteAll();
+            modeTravailRepository.alterModeTravail();
+        }
         modeTravailRepository.save(modeTravail);
     }
     public  void incrementPeriodeShift(String normalShift1, String normalShift2, String normalShift3, String ramadanShift1, String ramadanShift2, String ramadanShift3, LocalDate ramadanStartDate, LocalDate ramadanEndDate) {
@@ -339,5 +344,44 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     @Override
     public List<NormeProductivite> getNormeProductivite() {
         return normeProductiviteRepository.findAll();
+    }
+
+    @Override
+    public void deleteNormeProductvite(Long normeProductiviteId) {
+        normeProductiviteRepository.deleteById(normeProductiviteId);
+    }
+
+    @Override
+    public void updateNormeProductvite(Long id,Long traficId,
+                                       Long maintheoriqueId,
+                                       Long modeId,
+                                       int norme,
+                                       String sens,
+                                       String suiviProduit) {
+        NormeProductivite normeProductivite=normeProductiviteRepository.findById(id).orElseThrow(()
+                -> new EntityNotFoundException("not found with id " ));
+        Trafic trafic=traficRepository.findById(traficId).orElseThrow(()
+                -> new EntityNotFoundException("not found with id " ));
+        MainTheorique mainTheorique=mainTheoriqueRepository
+                .findById(maintheoriqueId).orElseThrow(()
+                        -> new EntityNotFoundException("not found with id " ));
+        Mode mode=modeRepository.findById(modeId).orElseThrow(()
+                -> new EntityNotFoundException("not found with id " ));
+        normeProductivite.setId(id);
+        normeProductivite.setNorme(norme);
+        normeProductivite.setMainTheorique(mainTheorique);
+        normeProductivite.setTrafic(trafic);
+        normeProductivite.setSens(sens);
+        normeProductivite.setSuiviProduit(suiviProduit);
+        normeProductivite.setMode(mode);
+        normeProductiviteRepository.updateNormeProductivite(
+                normeProductivite.getId(),
+                normeProductivite.getNorme(),
+                normeProductivite.getSens(),
+                normeProductivite.getSuiviProduit(),
+                normeProductivite.getMainTheorique(),
+                normeProductivite.getTrafic(),
+                normeProductivite.getMode()
+        );
     }
 }

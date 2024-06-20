@@ -1,6 +1,7 @@
 package org.hospital.modetravail.service;
 
 import org.hospital.modetravail.entities.*;
+import org.hospital.modetravail.requests.NormeProductiviteRequest;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -40,6 +41,13 @@ public interface GestionRessourcesService {
     public List<Equipement> getEquipementByEquipementFamille(Long Id);
     public List<Accessoir> getAccessoirByEquipementFamille(Long Id);
     public List<NormeProductivite> getNormeProductivite();
+    public void deleteNormeProductvite(Long normeProductiviteId);
+    public void updateNormeProductvite(Long id,Long traficId,
+                                       Long maintheoriqueId,
+                                       Long modeId,
+                                       int norme,
+                                       String sens,
+                                       String suiviProduit);
 
 
 }

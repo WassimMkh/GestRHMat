@@ -122,4 +122,22 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     public List<NormeProductivite> getNormeProductivite() {
         return gestionRessourcesService.getNormeProductivite();
     }
+    @DeleteMapping("/norme-productivite/{normeProducId}")
+    public void deleteNormeProductivite(@PathVariable("normeProducId") Long normeProductiviteId) {
+        gestionRessourcesService.deleteNormeProductvite(normeProductiviteId);
+    }
+    @PutMapping("/norme-productivite/{id}")
+    public void updateNormeProductivite(@PathVariable("id") Long id, @RequestBody NormeProductiviteRequest normeProductiviteRequest) {
+        normeProductiviteRequest.setId(id);
+        gestionRessourcesService.updateNormeProductvite(
+                id,
+                normeProductiviteRequest.getTraficId(),
+                normeProductiviteRequest.getMainTheoriqueId(),
+                normeProductiviteRequest.getModeId(),
+                normeProductiviteRequest.getNorme(),
+                normeProductiviteRequest.getSens(),
+                normeProductiviteRequest.getSuiviProduit()
+        );
+    }
+
 }

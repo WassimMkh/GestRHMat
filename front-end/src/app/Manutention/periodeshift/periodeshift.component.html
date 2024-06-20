@@ -1,0 +1,49 @@
+<div class="flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto" [ngClass]="{'shake': formSubmitted && shiftForm.invalid}">
+  <div class="flex gap-4 items-center justify-around w-full">
+    <form [formGroup]="shiftForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 p-5 bg-black/70 rounded w-full max-w-3xl">
+      <h2 class="text-center font-bold text-lg text-white mb-4 underline underline-offset-4">Période Shift</h2>
+      <div class="space-y-6 p-3">
+        <div class="form-group mb-4">
+          <div class="grid grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-center font-bold text-white mb-4">Période normale</h3>
+              <label class="text-white">Shift 1 :</label>
+              <input type="text" formControlName="normalShift1" class="form-input text-black mb-2 w-full">
+              <label class="text-white">Shift 2 :</label>
+              <input type="text" formControlName="normalShift2" class="form-input text-black mb-2 w-full">
+              <label class="text-white">Shift 3 :</label>
+              <input type="text" formControlName="normalShift3" class="form-input text-black w-full">
+            </div>
+            <div>
+              <h3 class="text-center font-bold text-white mb-4">Période Ramadan</h3>
+              <label class="text-white">Shift 1 :</label>
+              <input type="text" formControlName="ramadanShift1" class="form-input text-black mb-2 w-full">
+              <label class="text-white">Shift 2 :</label>
+              <input type="text" formControlName="ramadanShift2" class="form-input text-black mb-2 w-full">
+              <label class="text-white">Shift 3 :</label>
+              <input type="text" formControlName="ramadanShift3" class="form-input text-black w-full">
+            </div>
+          </div>
+          <div class="text-center font-bold text-lg text-white my-4 underline underline-offset-4">Définir la date de Ramadan</div>
+          <div class="grid grid-cols-2 gap-8 items-center">
+            <div>
+              <label class="text-white">Date début :</label>
+              <input type="date" formControlName="startDate" class="form-input text-black w-full">
+            </div>
+            <div>
+              <label class="text-white">Date fin :</label>
+              <input type="date" formControlName="endDate" class="form-input text-black w-full">
+            </div>
+          </div>
+          <div *ngIf="formSubmitted && (shiftForm.controls['startDate'].invalid || shiftForm.controls['endDate'].invalid)" class="text-red-500 mt-2">
+            Veuillez remplir la date de début et la date de fin.
+          </div>
+        </div>
+        <div class="flex justify-around mt-6">
+          <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
+          <button type="button" (click)="onCancel()" class="bg-gray-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

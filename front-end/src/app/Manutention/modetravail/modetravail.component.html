@@ -1,46 +1,41 @@
-<div>
-  <form [formGroup]="modeTravailForm" (ngSubmit)="onSubmit()">
-    <div class="flex min-h-screen justify-center items-center text-white">
-      <div class="inline-block p-10 rounded  backdrop-blur-md  bg-black/70 object-scale-down m-auto">
-        <h1 class="mb-8 font-bold underline text-lg text-center underline-offset-4 uppercase tracking-widest">Mode de travail</h1>
-        <div class=" inline-flex space-x-4 ">
-          <div>
-            <div>
-              <div class="inline-block">
-                <label  class="form-label p-2 font-mono">Semaine:</label>
-              </div>
-              <div class=" flex-auto w-32 " role="group" >
-                <div class="flex-auto w-32">
-                  <input type="radio"  name="sem" class="form-control" formControlName="semaine" value="6/7 jours">
-                  <label class="p-1">6/7 jours</label>
-                </div>
-                <div class="flex-auto w-32">
-                  <input type="radio"  name="sem" class="form-control" formControlName="semaine" value="7/7 jours">
-                  <label class="p-1">7/7 jours</label>
-                </div>
-              </div>
-            </div>
+<div class="flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto" [ngClass]="{'shake': formSubmitted && modeTravailForm.invalid}">
+  <div class="flex gap-4 items-center justify-around w-full">
+    <form [formGroup]="modeTravailForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 p-5 bg-black/70 rounded w-96">
+      <h2 class="text-center font-bold text-lg text-white mb-4 underline underline-offset-4">Mode de travail</h2>
+      <div class="space-y-6 p-3">
+        <div class="form-group mb-4">
+          <div class="grid grid-cols-3 gap-4 items-center">
+            <label class="text-white">Semaine :</label>
+            <label class="flex items-center text-white">
+              <input type="radio" value="6/7jours" class="form-radio text-blue-500 mr-2" name="semaine" formControlName="semaine"> 6/7jours
+            </label>
+            <label class="flex items-center text-white">
+              <input type="radio" value="7/7jours" class="form-radio text-blue-500 mr-2" name="semaine" formControlName="semaine"> 7/7jours
+            </label>
           </div>
-          <div>
-            <div><label class="p-6 font-mono">Jour:</label></div>
-            <div >
-              <div>
-                <input type="radio" name="jr" formControlName="jour" value="2/3 shifts">
-                <label class="p-1">2/3 shifts</label>
-              </div>
-              <div>
-                <input type="radio"  name="jr" formControlName="jour" value="3/3 shifts">
-                <label class="p-1">3/3 shifts</label>
-              </div>
-            </div>
+          <div *ngIf="modeTravailForm.controls['semaine'].invalid && (modeTravailForm.controls['semaine'].touched || formSubmitted)" class="text-red-500 mt-2">
+            Veuillez sélectionner une option pour la semaine.
           </div>
         </div>
-        <div class=" space-x-4 my-4">
-          <button  type="submit" class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Valider</button>
-          <button  type="button" (click)="onCancel()"  class="border border-white rounded bg-red-600 text-white px-7 py-0.3 font-mono">Annuler</button>
+        <div class="form-group mb-4">
+          <div class="grid grid-cols-3 gap-4 items-center">
+            <label class="text-white">Jour :</label>
+            <label class="flex items-center text-white">
+              <input type="radio" value="2/3shifts" class="form-radio text-blue-500 mr-2" name="jour" formControlName="jour"> 2/3shifts
+            </label>
+            <label class="flex items-center text-white">
+              <input type="radio" value="3/3shifts" class="form-radio text-blue-500 mr-2" name="jour" formControlName="jour"> 3/3shifts
+            </label>
+          </div>
+          <div *ngIf="modeTravailForm.controls['jour'].invalid && (modeTravailForm.controls['jour'].touched || formSubmitted)" class="text-red-500 mt-2">
+            Veuillez sélectionner une option pour le jour.
+          </div>
+        </div>
+        <div class="flex justify-around mt-6">
+          <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
+          <button type="button" (click)="onCancel()" class="bg-gray-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
         </div>
       </div>
-    </div>
-
-  </form>
+    </form>
+  </div>
 </div>

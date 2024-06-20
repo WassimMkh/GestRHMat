@@ -19,4 +19,10 @@ export class NormeProductiviteService {
   getNormeProductivite() : Observable<NormeproductRequest[]> {
     return this.http.get<NormeproductRequest[]>(`${this.host}/norme_productivite`);
   }
+  deleteNormeProductivite(normeProductiviteId : number) {
+    return this.http.delete(`${this.host}/norme-productivite/${normeProductiviteId}`);
+  }
+  updateNormeProductivite(normeProductiviteId : number, normeProductivite : NormeproductRequest): Observable<NormeproductRequest> {
+    return this.http.put<NormeproductRequest>(`${this.host}/norme-productivite/${normeProductiviteId}`,normeProductivite,{responseType : "json"})
+  }
 }
