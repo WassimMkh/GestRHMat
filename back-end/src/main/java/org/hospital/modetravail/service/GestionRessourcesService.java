@@ -48,6 +48,9 @@ public interface GestionRessourcesService {
                                        int norme,
                                        String sens,
                                        String suiviProduit);
+    public void initPeriodShfit();
+    public PeriodeShift getPeriodeShifts();
+    public void updatePeriodeShift(Long id,LocalDate ramadanStartDate, LocalDate ramadanEndDate);
 
 
 }

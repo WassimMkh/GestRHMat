@@ -384,4 +384,30 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
                 normeProductivite.getMode()
         );
     }
+
+    @Override
+    public void initPeriodShfit() {
+        PeriodeShift periodeShift = new PeriodeShift();
+        periodeShift.setNormalShift1("06:45 à 14:45");
+        periodeShift.setNormalShift2("14:45 à 22:45");
+        periodeShift.setNormalShift3("22:45 à 06:45");
+        periodeShift.setRamadanShift1("07:45 à 15:45 ");
+        periodeShift.setRamadanShift2("15:45 à 23:45");
+        periodeShift.setRamadanShift3("23:45 à 07:45");
+        if (periodeShiftRepository.count() >  0) {
+            periodeShiftRepository.deleteAll();
+            periodeShiftRepository.alterPeriodShift();
+        }
+        periodeShiftRepository.save(periodeShift);
+    }
+
+    @Override
+    public PeriodeShift getPeriodeShifts() {
+        return periodeShiftRepository.getPeriodeShift();
+    }
+
+    @Override
+    public void updatePeriodeShift(Long id, LocalDate ramadanStartDate, LocalDate ramadanEndDate) {
+        periodeShiftRepository.updateRamadanDates(id, ramadanStartDate, ramadanEndDate);
+    }
 }

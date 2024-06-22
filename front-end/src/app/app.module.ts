@@ -14,10 +14,10 @@ import {httpTokenInterceptorInterceptor} from "./Interceptors/http-token-interce
 import {KeycloakService} from "./services/keycloak.service";
 import {NgxPaginationModule} from "ngx-pagination";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {MatProgressBarModule} from "@angular/material/progress-bar"
 import {LoadingInterceptorInterceptor} from "./Interceptors/loading-interceptor.interceptor";
 import { FooterComponent } from './footer/footer.component';
 import {EquipeComponent} from "./Manutention/equipe/equipe.component";
+import {NavbarComponent} from "./navbar/navbar.component";
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -30,7 +30,8 @@ export function kcFactory(kcService : KeycloakService)  {
     NormeproductiviteComponent,
     FooterComponent,
     PeriodeshiftComponent,
-    EquipeComponent
+    EquipeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +40,6 @@ export function kcFactory(kcService : KeycloakService)  {
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    MatProgressBarModule
   ],
     providers: [
       HttpClient,

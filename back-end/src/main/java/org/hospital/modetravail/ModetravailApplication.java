@@ -22,6 +22,7 @@ public class ModetravailApplication implements CommandLineRunner {
         //gestionRessourcesService.initEquipemnts();
         //gestionRessourcesService.initAccessoirs();
         //gestionRessourcesService.initMode();
+        gestionRessourcesService.initPeriodShfit();
 
 
     }

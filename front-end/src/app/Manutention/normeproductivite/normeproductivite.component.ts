@@ -17,29 +17,33 @@ import {NormeproductRequest} from "../../models/normeproduct-request.model";
 })
 export class NormeproductiviteComponent  implements OnInit{
 
-  mainsTheoriques! : Array<mainTheoriqueRequest>;
-  trafics! : Array<traficRequest>;
-  modes! : Array<ModeRequest>
-  normeForm!: FormGroup
-  normesProductivites! : Array<NormeproductRequest>
-  p : number = 1;
+  mainsTheoriques!: Array<mainTheoriqueRequest>;
+  trafics!: Array<traficRequest>;
+  modes!: Array<ModeRequest>;
+  normeForm!: FormGroup;
+  normesProductivites!: Array<NormeproductRequest>;
+  p: number = 1;
   totalItems: number = 0;
   isEditMode: boolean = false;
   currentNormeId: number | null = null;
-  normeProductId! : number;
-  constructor(private traficService : TraficserviceService,
-              private mainTheoriqueService : MaintheoriqueService,
-              private modeService : ModeService,
-              private normeProductiviteService : NormeProductiviteService,
-              private fb : FormBuilder) {
+  normeProductId!: number;
+  selectedTab: string = 'form';
+  fileName: string = '';
+
+  constructor(private traficService: TraficserviceService,
+              private mainTheoriqueService: MaintheoriqueService,
+              private modeService: ModeService,
+              private normeProductiviteService: NormeProductiviteService,
+              private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.initForm()
+    this.initForm();
     this.getMainTheoriques();
     this.getMode();
     this.getNormProduct();
   }
+
   initForm() {
     this.normeForm = this.fb.group({
       mainTheoriqueId: ['', Validators.required],
@@ -50,18 +54,19 @@ export class NormeproductiviteComponent  implements OnInit{
       suiviProduit: ['shift', Validators.required]
     });
   }
+
   getMainTheoriques() {
     this.mainTheoriqueService.getMainsTheoriques().subscribe({
-      next : value =>{
+      next: value => {
         this.mainsTheoriques = value;
         if (this.mainsTheoriques.length > 0) {
           this.normeForm.patchValue({
-            mainTheoriqueId : this.mainsTheoriques[0].id
+            mainTheoriqueId: this.mainsTheoriques[0].id
           });
-          this.fetchTraficNames(this.mainsTheoriques[0].id)
+          this.fetchTraficNames(this.mainsTheoriques[0].id);
         }
       }
-    })
+    });
   }
 
   onMaintheoriqueChange() {
@@ -72,14 +77,13 @@ export class NormeproductiviteComponent  implements OnInit{
   }
 
   fetchTraficNames(mainTheoriqueId: number) {
-
     this.traficService.getTraficName(mainTheoriqueId).subscribe({
       next: value => {
         this.trafics = value;
-        if (!this.normeForm.get("traficId")?.value) {
+        if (!this.normeForm.get("traficId")?.value && this.trafics.length > 0) {
           this.normeForm.patchValue({
-            traficId : this.trafics[0].id
-          })
+            traficId: this.trafics[0].id
+          });
         }
       },
       error: err => {
@@ -87,12 +91,13 @@ export class NormeproductiviteComponent  implements OnInit{
       }
     });
   }
+
   getMode() {
     this.modeService.getMode().subscribe({
-      next : value => {
+      next: value => {
         this.modes = value;
       }
-    })
+    });
   }
 
   SaveOrUpdateNormProduct() {
@@ -101,16 +106,8 @@ export class NormeproductiviteComponent  implements OnInit{
         this.normeProductiviteService.addNormeProductivite(this.normeForm.value).subscribe({
           next: value => {
             this.getNormProduct();
-            console.log(this.normesProductivites)
             this.totalItems = this.normesProductivites.length;
-            this.normeForm.reset({
-              mainTheoriqueId: this.mainsTheoriques.length > 0 ? this.mainsTheoriques[0].id : '',
-              traficId: this.trafics.length > 0 ? this.trafics[0].id : '',
-              modeId: this.modes.length > 0 ? this.modes[0].id : '',
-              norme: 1800,
-              sens: 'export',
-              suiviProduit: 'shift'
-            });
+            this.resetForm();
           },
           error: err => {
             console.error('Error adding norme productivite:', err);
@@ -118,11 +115,11 @@ export class NormeproductiviteComponent  implements OnInit{
           }
         });
       } else {
-        console.log(this.normeProductId,this.normeForm.value)
-        this.normeProductiviteService.updateNormeProductivite(this.normeProductId,this.normeForm.value).subscribe({
-          next : value => {
+        this.normeProductiviteService.updateNormeProductivite(this.normeProductId, this.normeForm.value).subscribe({
+          next: value => {
             this.getNormProduct();
-            console.log(this.normesProductivites)
+            this.isEditMode = false;
+            this.resetForm();
           }
         });
       }
@@ -130,29 +127,28 @@ export class NormeproductiviteComponent  implements OnInit{
       console.error('Form is invalid');
     }
   }
+
   getNormProduct() {
     this.normeProductiviteService.getNormeProductivite().subscribe({
-      next : value => {
+      next: value => {
         this.normesProductivites = value;
-        console.log(this.normesProductivites)
       }
-    })
+    });
   }
 
-  deleteNormProduct(normeProductId : number) {
+  deleteNormProduct(normeProductId: number) {
     if (confirm("Etes vous sure ?")) {
       this.normeProductiviteService.deleteNormeProductivite(normeProductId).subscribe({
-        next : value => {
+        next: value => {
           this.getNormProduct();
           if (this.normesProductivites.length === (this.p - 1) * 3 + 1 && this.p > 1) {
             this.p -= 1;
           }
         },
-        error : err => {
+        error: err => {
           console.log(err);
         }
-        }
-      )
+      });
     }
   }
 
@@ -168,10 +164,24 @@ export class NormeproductiviteComponent  implements OnInit{
     if (norme.mainTheorique?.id) {
       this.fetchTraficNames(norme.mainTheorique.id);
     }
-    console.log(this.normeForm.value)
     this.normeProductId = norme.id;
     this.isEditMode = true;
-    this.currentNormeId = norme.id;
+    this.selectedTab = 'form';
   }
 
+  resetForm() {
+    this.normeForm.reset({
+      mainTheoriqueId: this.mainsTheoriques.length > 0 ? this.mainsTheoriques[0].id : '',
+      traficId: this.trafics.length > 0 ? this.trafics[0].id : '',
+      modeId: this.modes.length > 0 ? this.modes[0].id : '',
+      norme: 1800,
+      sens: 'export',
+      suiviProduit: 'shift'
+    });
+    this.isEditMode = false;
+    this.currentNormeId = null;
+  }
+
+  downloadFile() {
+  }
 }

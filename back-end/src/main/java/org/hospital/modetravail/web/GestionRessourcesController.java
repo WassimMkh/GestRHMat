@@ -22,6 +22,7 @@ import java.util.Map;
 public class GestionRessourcesController {
     @Autowired
     private GestionRessourcesService gestionRessourcesService;
+
     @PostMapping("/increment-modetravail")
     public void incrementModeTravail(@RequestBody ModeTravailRequest modeTravailRequest) {
         gestionRessourcesService.incrementModeTravail(modeTravailRequest.getSemaine(),modeTravailRequest.getJour());
@@ -138,6 +139,15 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
                 normeProductiviteRequest.getSens(),
                 normeProductiviteRequest.getSuiviProduit()
         );
+    }
+    @GetMapping("/shifts")
+    public PeriodeShift getShifts() {
+        return gestionRessourcesService.getPeriodeShifts();
+    }
+    @PatchMapping("/shifts/{id}")
+    public void updateRamadanDates(@PathVariable("id") Long id,
+                                   @RequestBody PeriodeShift periodeShift)  {
+        gestionRessourcesService.updatePeriodeShift(id, periodeShift.getRamadanStartDate(), periodeShift.getRamadanEndDate());
     }
 
 }

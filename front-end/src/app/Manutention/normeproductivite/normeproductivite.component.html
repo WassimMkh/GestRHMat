@@ -1,98 +1,121 @@
-<div class=" flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto">
-  <div class="flex gap-4 items-center justify-around w-full">
-    <form [formGroup]="normeForm" (ngSubmit)="SaveOrUpdateNormProduct() " class="flex gap-4 p-5 backdrop-blur-md bg-black/70 rounded">
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div class="form-group">
-          <label for="trafic" class="block mb-1 text-white">Main :</label>
-          <select id="trafic" class="w-full px-3 py-2 border rounded" formControlName="mainTheoriqueId" (change)="onMaintheoriqueChange()" required>
-            <option *ngFor="let maintheorique of mainsTheoriques" [value]="maintheorique.id">{{maintheorique.nom}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="mainTheorique" class="block mb-1 text-white">Trafic :</label>
-          <select id="mainTheorique" class="w-full px-3 py-2 border rounded" formControlName="traficId" required>
-            <option *ngFor="let trafic of trafics" [value]="trafic.id">{{trafic.name}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="mode" class="block mb-1 text-white">Mode :</label>
-          <select id="mode" class="w-full px-3 py-2 border rounded" formControlName="modeId" required>
-            <option *ngFor="let mode of modes" [value]="mode.id">{{mode.nom}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="norme" class="block mb-1 text-white">Norme :</label>
-          <input type="number" id="norme" class="w-full px-3 py-2 border rounded" formControlName="norme" required>
-        </div>
-      </div>
-      <div class="p-5">
-        <div class="form-group mb-4">
-          <label class="block mb-1 text-white">Sens :</label>
-          <div class="flex space-x-4">
-            <label class="flex items-center text-white">
-              <input type="radio" value="export" class="mr-2" formControlName="sens" required> export
-            </label>
-            <label class="flex items-center text-white">
-              <input type="radio" value="import" class="mr-2" formControlName="sens" required> import
-            </label>
-          </div>
-        </div>
-        <div class="form-group mb-4">
-          <label class="block mb-1 text-white">Nature suivi du produit :</label>
-          <div class="flex space-x-4">
-            <label class="flex items-center text-white">
-              <input type="radio" value="shift" class="mr-2" formControlName="suiviProduit" required> Shift
-            </label>
-            <label class="flex items-center text-white">
-              <input type="radio" value="finTravail" class="mr-2" formControlName="suiviProduit" required> Fin du travail
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-center justify-center">
-        <button type="submit"  class="bg-blue-500 text-white px-4 py-2 rounded transform transition-transform duration-100 ease-in-out mx-4"
-                [ngClass]="{
-                              'active:translate-y-1 active:shadow-inner': normeForm.valid,
-                              'bg-gray-400 cursor-not-allowed': normeForm.invalid
-                          }"
-                [disabled]="normeForm.invalid">
-          {{ isEditMode ? 'Update' : 'Ajouter' }}
-        </button>
-        <app-loading></app-loading>
-      </div>
-    </form>
-  </div>
+<div class="d-flex flex-column align-items-center w-100 h-100">
+  <div class="w-100 max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" [ngClass]="{'active': selectedTab === 'form'}" (click)="selectedTab = 'form'" role="tab" aria-selected="selectedTab === 'form'">Formulaire</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" [ngClass]="{'active': selectedTab === 'table'}" (click)="selectedTab = 'table'" role="tab" aria-selected="selectedTab === 'table'">Tableau</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" [ngClass]="{'active': selectedTab === 'download'}" (click)="selectedTab = 'download'" role="tab" aria-selected="selectedTab === 'download'">Télécharger</a>
+      </li>
+    </ul>
 
-  <div class="w-10/12 h-full rounded backdrop-blur-md bg-black/70">
-    <div class="table-container rounded overflow-y-auto h-50 border border-gray-300">
-      <table class="bg-white border-collapse w-full">
-        <thead>
-        <tr class="bg-gray-200">
-          <th class="px-4 py-2 border">Trafic</th>
-          <th class="px-4 py-2 border">Main théorique</th>
-          <th class="px-4 py-2 border">Mode</th>
-          <th class="px-4 py-2 border">Norme</th>
-          <th class="px-4 py-2 border">Sens</th>
-          <th class="px-4 py-2 border">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let norme of normesProductivites | paginate: { itemsPerPage: 3, currentPage: p }">
-          <td class="px-4 py-2 border">{{ norme.trafic?.name }}</td>
-          <td class="px-4 py-2 border">{{ norme.mainTheorique?.nom }}</td>
-          <td class="px-4 py-2 border">{{ norme.mode?.nom }}</td>
-          <td class="px-4 py-2 border">{{ norme.norme }}</td>
-          <td class="px-4 py-2 border">{{ norme.sens }}</td>
-          <td class="px-4 py-2 border">
-            <button class="bg-yellow-500 text-white px-2 py-1 rounded mx-4 transition transform active:scale-95" (click)="editNormProduct(norme)" >Edit</button>
-            <button (click)="deleteNormProduct(norme.id)" class="bg-red-500 text-white px-2 py-1 rounded transition transform active:scale-95">Delete</button>
-          </td>
-        </tr>
-        </tbody>
-        <div class="bg-white border-collapse w-full rounded">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'form'}" role="tabpanel" aria-labelledby="form-tab">
+        <form [formGroup]="normeForm" (ngSubmit)="SaveOrUpdateNormProduct()" class="p-4 rounded h-45">
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+              <label for="trafic" class="form-label text-white">Main :</label>
+              <select id="trafic" class="form-select" formControlName="mainTheoriqueId" (change)="onMaintheoriqueChange()" required>
+                <option *ngFor="let maintheorique of mainsTheoriques" [value]="maintheorique.id">{{maintheorique.nom}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="mainTheorique" class="form-label text-white">Trafic :</label>
+              <select id="mainTheorique" class="form-select" formControlName="traficId" required>
+                <option *ngFor="let trafic of trafics" [value]="trafic.id">{{trafic.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="mode" class="form-label text-white">Mode :</label>
+              <select id="mode" class="form-select" formControlName="modeId" required>
+                <option *ngFor="let mode of modes" [value]="mode.id">{{mode.nom}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="norme" class="form-label text-white">Norme :</label>
+              <input type="number" id="norme" class="form-control" formControlName="norme" required>
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-12 mb-3">
+              <label class="form-label text-white">Sens :</label>
+              <div class="d-flex">
+                <div class="form-check me-4">
+                  <input type="radio" value="export" class="form-check-input" formControlName="sens" required>
+                  <label class="form-check-label text-white">export</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" value="import" class="form-check-input" formControlName="sens" required>
+                  <label class="form-check-label text-white">import</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label class="form-label text-white">Nature suivi du produit :</label>
+              <div class="d-flex">
+                <div class="form-check me-4">
+                  <input type="radio" value="shift" class="form-check-input" formControlName="suiviProduit" required>
+                  <label class="form-check-label text-white">Shift</label>
+                </div>
+                <div class="form-check">
+                  <input type="radio" value="finTravail" class="form-check-input" formControlName="suiviProduit" required>
+                  <label class="form-check-label text-white">Fin du travail</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" [ngClass]="{'btn-secondary': normeForm.invalid}" [disabled]="normeForm.invalid">
+              {{ isEditMode ? 'Update' : 'Ajouter' }}
+            </button>
+            <app-loading></app-loading>
+          </div>
+        </form>
+      </div>
+
+      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'table'}" role="tabpanel" aria-labelledby="table-tab">
+        <div class="table-responsive rounded overflow-y-auto h-75">
+          <table class="table table-dark table-hover table-bordered m-0">
+            <thead>
+            <tr>
+              <th>Trafic</th>
+              <th>Main théorique</th>
+              <th>Mode</th>
+              <th>Norme</th>
+              <th>Sens</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let norme of normesProductivites | paginate: { itemsPerPage: 3, currentPage: p }">
+              <td>{{ norme.trafic?.name }}</td>
+              <td>{{ norme.mainTheorique?.nom }}</td>
+              <td>{{ norme.mode?.nom }}</td>
+              <td>{{ norme.norme }}</td>
+              <td>{{ norme.sens }}</td>
+              <td>
+                <button class="btn btn-warning me-2" (click)="editNormProduct(norme)">Edit</button>
+                <button (click)="deleteNormProduct(norme.id)" class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event" class="mt-3"></pagination-controls>
         </div>
-      </table>
+      </div>
+
+      <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'download'}" role="tabpanel" aria-labelledby="download-tab">
+        <h2 class="text-center text-warning mb-4">Télécharger un fichier</h2>
+        <p class="text-white mb-4">Entrez le nom du fichier que vous souhaitez télécharger :</p>
+        <div class="d-flex flex-column align-items-center mb-4">
+          <input type="text" [(ngModel)]="fileName" class="form-control mb-3 w-50">
+          <button (click)="downloadFile()" class="btn btn-primary">Télécharger</button>
+        </div>
+        <p class="text-white">Ce formulaire permet de définir les périodes de shift pendant le mois de Ramadan. Veuillez remplir les informations nécessaires et soumettre le formulaire.</p>
+      </div>
     </div>
   </div>
 </div>
