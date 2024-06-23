@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthentificationComponent } from './Administration/authentification/authentification.component';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, provideHttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHeaders, provideHttpClient} from "@angular/common/http";
 import {PeriodeshiftComponent} from "./Manutention/periodeshift/periodeshift.component";
 import {ModetravailComponent} from "./Manutention/modetravail/modetravail.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -18,6 +18,9 @@ import {LoadingInterceptorInterceptor} from "./Interceptors/loading-interceptor.
 import { FooterComponent } from './footer/footer.component';
 import {EquipeComponent} from "./Manutention/equipe/equipe.component";
 import {NavbarComponent} from "./navbar/navbar.component";
+import {ManutentionComponent} from "./Manutention/manutention.component";
+import { PlanDeRoulementComponent } from './Manutention/planderoulement/planderoulement.component';
+import { MaintheoriqueComponent } from './Manutention/maintheorique/maintheorique.component';
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -31,7 +34,10 @@ export function kcFactory(kcService : KeycloakService)  {
     FooterComponent,
     PeriodeshiftComponent,
     EquipeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ManutentionComponent,
+    PlanDeRoulementComponent,
+    MaintheoriqueComponent
   ],
   imports: [
     BrowserModule,

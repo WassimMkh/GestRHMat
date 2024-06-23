@@ -1,5 +1,5 @@
-<div [formGroup]="equipeForm" class="flex flex-wrap gap-4 justify-center items-center w-screen h-full m-auto">
-  <div class="flex gap-4 items-center justify-around w-full">
+<div [formGroup]="equipeForm" class="flex flex-wrap gap-4 justify-center items-center min-h-screen">
+  <div class="flex gap-4 items-center justify-center w-full">
     <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
       <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -13,35 +13,28 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'form'}" role="tabpanel" aria-labelledby="form-tab">
           <div class="flex flex-col gap-4 p-5">
-            <h2 class="text-center font-bold text-lg text-white mb-4 underline underline-offset-4">Définition Equipe</h2>
             <div class="grid grid-cols-2 gap-4">
               <div class="space-y-4">
                 <div class="form-group">
-                  <label class="text-white">Id.Equipe :</label>
-                  <input type="text" formControlName="idEquipe" class="form-input text-black w-full">
+                  <label class="text-white">Nom équipe :</label>
+                  <input type="text" formControlName="nomEquipe" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label class="text-white">Responsable équipe :</label>
-                  <input type="text" formControlName="responsableEquipe" class="form-input text-black w-full">
-                </div>
-                <div class="form-group">
-                  <label class="text-white">Fonctions :</label>
-                  <select formControlName="fonctions" class="form-select text-black w-full">
-                    <option value="CE">CE</option>
-                    <option value="CER">CER</option>
-                    <option value="CEQ">CEQ</option>
-                    <option value="Grutier">Grutier</option>
+                  <label class="text-white">Fonctions des Employes :</label>
+                  <select formControlName="fonctions" class="form-select">
+                    <option value="" disabled selected>Choisir une fonction</option>
+                    <option *ngFor="let fonction of fonctions" [value]="fonction">{{fonction}}</option>
                   </select>
                 </div>
               </div>
               <div class="space-y-4">
                 <div class="form-group">
-                  <label class="text-white">Nom équipe :</label>
-                  <input type="text" formControlName="nomEquipe" class="form-input text-black w-full">
+                  <label class="text-white">Responsable équipe :</label>
+                  <input type="text" formControlName="responsableEquipe" class="form-control">
                 </div>
                 <div class="form-group">
-                  <label class="text-white">Fonction :</label>
-                  <input type="text" formControlName="fonction" class="form-input text-black w-full">
+                  <label class="text-white">Fonction équipe:</label>
+                  <input type="text" formControlName="fonction" class="form-control">
                 </div>
               </div>
             </div>
@@ -53,8 +46,8 @@
 
         <div class="tab-pane fade" [ngClass]="{'show active': selectedTab === 'employee'}" role="tabpanel" aria-labelledby="employee-tab">
           <div class="grid grid-cols-3 gap-4 items-center mt-4">
-            <select multiple class="form-select text-black w-full h-24" formControlName="availableMembers">
-              <option *ngFor="let member of availableMembers">{{member}}</option>
+            <select multiple class="form-select text-black w-full h-24" [formControlName]="'availableMembersControl'">
+              <option *ngFor="let member of availableMembers" [value]="member">{{member.nom}}</option>
             </select>
             <div class="flex flex-col items-center space-y-2">
               <button type="button" (click)="moveToSelected()" class="bg-gray-500 text-white px-2 py-1 rounded">></button>
@@ -62,8 +55,8 @@
               <button type="button" (click)="moveToAvailable()" class="bg-gray-500 text-white px-2 py-1 rounded"><</button>
               <button type="button" (click)="moveAllToAvailable()" class="bg-gray-500 text-white px-2 py-1 rounded"><<</button>
             </div>
-            <select multiple class="form-select text-black w-full h-24" formControlName="selectedMembers">
-              <option *ngFor="let member of selectedMembers">{{member}}</option>
+            <select multiple class="form-select text-black w-full h-24" [formControlName]="'selectedMembersControl'">
+              <option *ngFor="let member of selectedMembers" [value]="member">{{member.nom}}</option>
             </select>
           </div>
           <div *ngIf="formSubmitted && selectedMembers.length === 0" class="text-red-500 mt-2">
@@ -73,8 +66,8 @@
       </div>
 
       <div class="flex justify-around mt-6">
-        <button type="submit" (click)="onSubmit()" [ngClass]="{'btn-secondary': isFormInvalid()}" [disabled]="isFormInvalid()" class="bg-blue-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
-        <button type="button" (click)="onCancel()" class="bg-gray-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
+        <button type="submit" (click)="onSubmit()" [ngClass]="{'btn-secondary': isFormInvalid()}" [disabled]="isFormInvalid()" class="btn btn-primary">Valider</button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">Annuler</button>
       </div>
     </div>
   </div>

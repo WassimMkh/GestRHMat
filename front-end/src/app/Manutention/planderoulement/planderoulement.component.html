@@ -1,0 +1,59 @@
+<div [formGroup]="planDeRoulementForm" class="flex flex-wrap gap-4 justify-center items-center min-h-screen">
+  <div class="flex gap-4 items-center justify-center w-full">
+    <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane show active" role="tabpanel">
+          <div class="flex flex-col gap-4 p-5">
+            <div class="flex flex-row justify-content-center items-center gap-48">
+              <p class="textt opacity-60">Mode de travail : {{ modeTravail[0]?.semaine }}</p>
+              <p class="textt opacity-60">Shift : {{ modeTravail[0]?.jour }}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="col-span-2 grid grid-cols-1 items-center">
+                <div class="form-group text-center">
+                  <div class="radio-group flex justify-center gap-20">
+                    <label class="radio-label">
+                      <input type="radio" formControlName="modeDeTravail" value="mois"> Mois
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" formControlName="modeDeTravail" value="semaine"> Semaine
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="text-white">Date début :</label>
+                <input type="date" formControlName="dateDebut" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="text-white">Date fin :</label>
+                <input type="date" formControlName="dateFin" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="text-white">Equipe :</label>
+                <select formControlName="equipe" class="form-select">
+                  <option value="" disabled selected>Choisir une équipe</option>
+                  <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.nom }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="radio-group flex flex-col p-3 gap-2 justify-center">
+                  <label class="radio-label">
+                    <input type="radio" formControlName="shift" value="shift1"> Shift 1
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" formControlName="shift" value="shift2"> Shift 2
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-buttons mt-6 flex justify-center items-center gap-4">
+          <button type="submit" (click)="onSubmit()" [ngClass]="{'btn-secondary': isFormInvalid()}" [disabled]="isFormInvalid()" class="btn btn-primary">Valider</button>
+          <button type="button" (click)="onCancel()" class="btn btn-secondary">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

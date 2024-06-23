@@ -1,0 +1,26 @@
+.navbar-container {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 1.5rem;
+}
+
+.dropdown-menu {
+  text-align: center;
+}
+
+.bg-transparent {
+  background-color: transparent !important;
+}

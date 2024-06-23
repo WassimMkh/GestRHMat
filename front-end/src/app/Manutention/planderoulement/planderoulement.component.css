@@ -1,0 +1,87 @@
+
+
+.tab-content {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+  color: white;
+}
+
+.text-warning {
+  color: #ffcc00 !important;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.plan-de-roulement-container input, .plan-de-roulement-container .radio-group input, .plan-de-roulement-container select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background-color: #444;
+  color: white;
+}
+
+.plan-de-roulement-container .radio-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.plan-de-roulement-container .radio-group.flex-col {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.plan-de-roulement-container .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.plan-de-roulement-container .form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.plan-de-roulement-container .btn-validate, .plan-de-roulement-container .btn-cancel {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.plan-de-roulement-container .btn-validate {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.plan-de-roulement-container .btn-cancel {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.textt {
+  color: orange;
+}

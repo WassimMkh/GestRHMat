@@ -1,0 +1,108 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: red;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 2rem;
+  cursor: pointer;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+.logout-button:hover {
+  color: black;
+}
+
+.sidebar {
+  width: 5rem;
+  height: 100vh;
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: width 200ms ease;
+}
+
+.sidebar-open {
+  width: 16rem;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  color: white;
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: 600ms;
+}
+
+
+.nav-link:hover {
+  filter: grayscale(0%) opacity(1);
+  background: #E53517;
+  color: white;
+}
+
+.link-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.nav-link svg {
+  min-width: 2rem;
+  margin: 0 1.5rem;
+  transition: fill 200ms;
+}
+
+.sidebar-open .link-text {
+  display: block;
+}
+
+.nav-link:hover svg {
+  fill: black;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 5rem;
+  transition: margin-left 200ms ease;
+}
+
+.container-shift {
+  margin-left: 16rem;
+}

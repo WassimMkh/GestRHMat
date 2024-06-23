@@ -5,6 +5,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import org.hospital.modetravail.entities.*;
 import org.hospital.modetravail.repository.*;
+import org.hospital.modetravail.requests.ModeTravailRequest;
 import org.hospital.modetravail.requests.NormeProductiviteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -409,5 +410,10 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     @Override
     public void updatePeriodeShift(Long id, LocalDate ramadanStartDate, LocalDate ramadanEndDate) {
         periodeShiftRepository.updateRamadanDates(id, ramadanStartDate, ramadanEndDate);
+    }
+
+    @Override
+    public List<ModeTravail> getModeTravail() {
+        return modeTravailRepository.findAll();
     }
 }

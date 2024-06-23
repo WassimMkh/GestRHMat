@@ -1,6 +1,7 @@
 package org.hospital.modetravail.service;
 
 import org.hospital.modetravail.entities.*;
+import org.hospital.modetravail.requests.ModeTravailRequest;
 import org.hospital.modetravail.requests.NormeProductiviteRequest;
 
 import java.time.LocalDate;
@@ -52,5 +53,6 @@ public interface GestionRessourcesService {
     public PeriodeShift getPeriodeShifts();
     public void updatePeriodeShift(Long id,LocalDate ramadanStartDate, LocalDate ramadanEndDate);
 
+    public List<ModeTravail> getModeTravail();
 
 }

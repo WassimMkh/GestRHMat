@@ -33,7 +33,6 @@ public class GestionRessourcesController {
         gestionRessourcesService.incrementPeriodeShift(normalShift1,normalShift2,normalShift3,ramadanShift1,ramadanShift2,ramadanShift3,ramadanStartDate,ramadanEndDate);
     }
     @PostMapping("/cree-equipe")
-
     public  void incrementEquipe(@RequestBody EquipeRequest equipeRequest) {
         gestionRessourcesService.incrementEquipe(equipeRequest.getNom(), equipeRequest.getResponsable(), equipeRequest.getEmployeIds());
     }
@@ -45,17 +44,16 @@ public class GestionRessourcesController {
     public List<String> getFonctions() {
         return gestionRessourcesService.getFonctions();
     }
-/*    @PostMapping("/cree-shiftPlan")
-
-    public void incrementShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest){
-        gestionRessourcesService.incrementShiftPlan(
-                shiftPlanRequest.getPeriode(),
-                shiftPlanRequest.getDateDebut(),
-               shiftPlanRequest.getDateFin(),
-                shiftPlanRequest.getModeTravailId(),
-                shiftPlanRequest.getShift(),
-                shiftPlanRequest.getEquipeIds());
-    }*/
+//   @PostMapping("/cree-shiftPlan")
+//    public void incrementShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest){
+//        gestionRessourcesService.incrementShiftPlan(
+//                shiftPlanRequest.getPeriode(),
+//                shiftPlanRequest.getDateDebut(),
+//                shiftPlanRequest.getDateFin(),
+//                shiftPlanRequest.getModeTravailId(),
+//                shiftPlanRequest.getShift(),
+//                shiftPlanRequest.getEquipeIds());
+//    }
 @PostMapping("/cree-shiftPlan")
 public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest) {
     try {
@@ -148,6 +146,10 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     public void updateRamadanDates(@PathVariable("id") Long id,
                                    @RequestBody PeriodeShift periodeShift)  {
         gestionRessourcesService.updatePeriodeShift(id, periodeShift.getRamadanStartDate(), periodeShift.getRamadanEndDate());
+    }
+    @GetMapping("/modedetravail")
+    public List<ModeTravail> getModeDeTravail() {
+        return gestionRessourcesService.getModeTravail();
     }
 
 }
