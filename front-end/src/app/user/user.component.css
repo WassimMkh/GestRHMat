@@ -1,0 +1,16 @@
+.form-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.form-container label {
+  color: white;
+}
+
+.form-container input {
+  color: black;
+}

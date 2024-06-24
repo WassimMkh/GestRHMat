@@ -1,4 +1,75 @@
 .navbar-container {
+  width: 100%;
+  background-color: #ffffff; /* Background color */
+  padding-top: 0; /* Remove padding from the top */
+  position: fixed; /* Fix the navbar at the top */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure the navbar stays on top */
+}
+
+.custom-navbar {
+  border-radius: 0; /* Remove border-radius to make it span the full width */
+  padding: 10px 30px; /* Adjusted padding for better spacing */
+  width: 100%; /* Full width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: to add a slight shadow for better visibility */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.custom-nav-link {
+  color: #333333; /* Text color */
+  margin: 0 15px;
+  padding: 10px 15px; /* Adjusted padding for links */
+  border-radius: 5px; /* Slight rounding for rectangle */
+  transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap; /* Prevent text wrapping */
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Ensure no underline */
+  position: relative; /* For pseudo-element positioning */
+}
+
+.custom-nav-link i {
+  margin-right: 8px; /* Space between icon and text */
+}
+
+.custom-nav-link.active {
+  background-color: #a14ebf; /* Active background color */
+  color: white !important; /* Active text color */
+}
+
+.custom-nav-link:not(.active):hover {
+  color: white; /* Hover text color */
+}
+
+.custom-nav-link:not(.active)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #a14ebf; /* Hover background color */
+  z-index: -1;
+  transition: width 0.3s ease;
+  border-radius: 25px;
+}
+
+.custom-nav-link:not(.active):hover::before {
+  width: 100%; /* Full width for rectangle */
+}
+
+.navbar-container {
   position: fixed;
   width: 100%;
   z-index: 1000;
