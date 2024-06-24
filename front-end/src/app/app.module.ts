@@ -21,6 +21,7 @@ import {NavbarComponent} from "./navbar/navbar.component";
 import {ManutentionComponent} from "./Manutention/manutention.component";
 import { PlanDeRoulementComponent } from './Manutention/planderoulement/planderoulement.component';
 import { MaintheoriqueComponent } from './Manutention/maintheorique/maintheorique.component';
+import { AdminComponent } from './admin/admin.component';
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -37,7 +38,9 @@ export function kcFactory(kcService : KeycloakService)  {
     NavbarComponent,
     ManutentionComponent,
     PlanDeRoulementComponent,
-    MaintheoriqueComponent
+    MaintheoriqueComponent,
+    AdminComponent,
+
   ],
   imports: [
     BrowserModule,

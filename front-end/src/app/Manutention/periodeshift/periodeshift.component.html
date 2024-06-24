@@ -1,75 +1,73 @@
-<div class="flex flex-col items-center w-screen h-full m-auto">
-  <div class="w-full max-w-3xl bg-black/70 rounded-lg shadow-2xl p-6">
-    <ul class="flex border-b w-full mb-4 justify-around nav">
-      <li class="mr-1 nav-item">
-        <a [ngClass]="{'bg-blue-500': selectedTab === 'form', 'bg-gray-500': selectedTab !== 'form'}"
-           class="inline-block py-2 px-4 text-white font-semibold cursor-pointer"
-           (click)="selectedTab = 'form'">Formulaire</a>
+<div [formGroup]="shiftForm" class="flex flex-col items-center justify-center min-h-screen">
+  <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
+    <ul class="nav nav-tabs mb-4">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Formulaire</a>
       </li>
-      <li class="mr-1">
-        <a [ngClass]="{'bg-blue-500': selectedTab === 'download', 'bg-gray-500': selectedTab !== 'download'}"
-           class="inline-block py-2 px-4 text-white font-semibold cursor-pointer"
-           (click)="selectedTab = 'download'">Télécharger un fichier</a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Télécharger un fichier</a>
       </li>
     </ul>
 
-    <div *ngIf="selectedTab === 'form'" class="w-full">
-      <form [formGroup]="shiftForm" (ngSubmit)="updatePeriodeShift()" class="flex flex-col gap-4">
-        <h2 class="text-center font-bold text-lg text-white mb-4 underline underline-offset-4">Période Shift</h2>
-        <div class="space-y-6 p-3">
-          <div class="form-group mb-4">
+    <div class="tab-content">
+      <div class="tab-pane fade show active">
+        <!-- Contenu du formulaire -->
+        <form (ngSubmit)="updatePeriodeShift()" class="flex flex-col gap-4 p-5">
+          <div class="space-y-6 p-3">
             <div class="grid grid-cols-2 gap-8 items-center">
               <div>
-                <h3 class="text-center font-bold text-white mb-4">Période normale</h3>
+                <h3 class="text-center font-bold text-lg text-white mb-4">Période normale</h3>
                 <label class="text-white">Shift 1 :</label>
-                <input type="text" formControlName="normalShift1" class="form-input mb-2 w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="normalShift1" class="form-input mb-2">
                 <label class="text-white">Shift 2 :</label>
-                <input type="text" formControlName="normalShift2" class="form-input mb-2 w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="normalShift2" class="form-input mb-2">
                 <label class="text-white">Shift 3 :</label>
-                <input type="text" formControlName="normalShift3" class="form-input w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="normalShift3" class="form-input">
               </div>
               <div>
-                <h3 class="text-center font-bold text-white mb-4">Période Ramadan</h3>
+                <h3 class="text-center font-bold text-lg text-white mb-4">Période Ramadan</h3>
                 <label class="text-white">Shift 1 :</label>
-                <input type="text" formControlName="ramadanShift1" class="form-input mb-2 w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="ramadanShift1" class="form-input mb-2">
                 <label class="text-white">Shift 2 :</label>
-                <input type="text" formControlName="ramadanShift2" class="form-input mb-2 w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="ramadanShift2" class="form-input mb-2">
                 <label class="text-white">Shift 3 :</label>
-                <input type="text" formControlName="ramadanShift3" class="form-input w-full bg-white" [attr.disabled]="true">
+                <input type="text" formControlName="ramadanShift3" class="form-input">
               </div>
             </div>
-            <div class="text-center font-bold text-lg text-white my-4 underline underline-offset-4">Définir la date de Ramadan</div>
+            <div class="text-center font-bold text-lg text-white my-4 ">Définir la date de Ramadan</div>
             <div class="grid grid-cols-2 gap-8 items-center">
               <div>
                 <label class="text-white">Date début :</label>
-                <input type="date" formControlName="startDate" class="form-input text-black w-full">
+                <input type="date" formControlName="startDate" class="form-input">
               </div>
               <div>
                 <label class="text-white">Date fin :</label>
-                <input type="date" formControlName="endDate" class="form-input text-black w-full">
+                <input type="date" formControlName="endDate" class="form-input">
               </div>
             </div>
             <div *ngIf="formSubmitted && (shiftForm.controls['startDate'].invalid || shiftForm.controls['endDate'].invalid)" class="text-red-500 mt-2">
               Veuillez remplir la date de début et la date de fin.
             </div>
           </div>
-          <div class="flex justify-around mt-6">
-            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
-            <app-loading></app-loading>
-            <button type="button" (click)="onCancel()" class="bg-gray-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
+        </form>
+      </div>
+
+      <div class="tab-pane fade">
+        <!-- Contenu pour télécharger un fichier -->
+        <div class="flex flex-col items-center gap-4">
+          <h2 class="text-center font-bold text-lg mb-4 underline underline-offset-4 text-white">Télécharger un fichier</h2>
+          <p class="mb-4 text-white">Entrez le nom du fichier que vous souhaitez télécharger :</p>
+          <div class="flex flex-col items-center gap-4">
+            <input type="text" [(ngModel)]="fileName" class="form-input w-full max-w-xs">
+            <button (click)="downloadFile()" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Télécharger</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
 
-    <div *ngIf="selectedTab === 'download'" class="w-full text-white">
-      <h2 class="text-center font-bold text-lg mb-4 underline underline-offset-4">Télécharger un fichier</h2>
-      <p class="mb-4">Entrez le nom du fichier que vous souhaitez télécharger :</p>
-      <div class="flex flex-col items-center gap-4">
-        <input type="text" [(ngModel)]="fileName" class="form-input text-black w-full max-w-xs">
-        <button (click)="downloadFile()" class="bg-blue-500 text-white px-6 py-2 rounded transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Télécharger</button>
-      </div>
-      <p class="mt-4">Ce formulaire permet de définir les périodes de shift pendant le mois de Ramadan. Veuillez remplir les informations nécessaires et soumettre le formulaire.</p>
+    <div class="flex justify-around mt-6">
+      <button type="submit" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
+      <button type="button" class="btn btn-secondary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
     </div>
   </div>
 </div>
