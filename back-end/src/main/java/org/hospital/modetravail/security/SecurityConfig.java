@@ -52,7 +52,12 @@ public class SecurityConfig {
                                 "/periode-Ramadan",
                                 "/shifts",
                                 "/shifts/*",
-                                "/modedetravail"
+                                "/modedetravail",
+                                        "/typetrafic",
+                                "/typetrafic/trafic/*",
+                                "/equipementfamille/equipement/*",
+                                        "/equipementfamille/accessoir/{id}",
+                                        "/equipementfamille"
                                 )
                                 .permitAll()
                                 .anyRequest()

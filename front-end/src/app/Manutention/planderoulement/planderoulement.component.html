@@ -32,7 +32,7 @@
               <div class="form-group">
                 <label class="text-white">Equipe :</label>
                 <select formControlName="equipe" class="form-select">
-                  <option value="" disabled selected>Choisir une équipe</option>
+                  <option value="" disabled selected></option>
                   <option *ngFor="let equipe of equipes" [value]="equipe.id">{{ equipe.nom }}</option>
                 </select>
               </div>

@@ -7,6 +7,7 @@ import { PeriodeshiftComponent } from "./Manutention/periodeshift/periodeshift.c
 import { EquipeComponent } from "./Manutention/equipe/equipe.component";
 import { ManutentionComponent } from "./Manutention/manutention.component";
 import {PlanDeRoulementComponent} from "./Manutention/planderoulement/planderoulement.component";
+import {MaintheoriqueComponent} from "./Manutention/maintheorique/maintheorique.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "authentification", pathMatch: "full" },
@@ -18,7 +19,8 @@ const routes: Routes = [
       { path: "modeTravail", component: ModetravailComponent },
       { path: "periodeShift", component: PeriodeshiftComponent },
       { path: "equipe", component: EquipeComponent },
-      { path:"planderoulement",component : PlanDeRoulementComponent}
+      { path:"planderoulement",component : PlanDeRoulementComponent},
+      {path : "mainTheorique", component : MaintheoriqueComponent}
     ]
   }
 ];

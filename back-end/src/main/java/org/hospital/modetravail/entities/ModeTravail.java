@@ -15,8 +15,5 @@ public class ModeTravail {
     private Long id;
     private String semaine;
     private String jour;
-    @OneToMany(mappedBy = "modeTravail")
-    @JsonIgnore
-    private Collection<ShiftPlan> shiftPlans;
 
 }

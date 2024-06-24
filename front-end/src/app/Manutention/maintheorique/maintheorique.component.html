@@ -1,1 +1,72 @@
-<p>maintheorique works!</p>
+<div [formGroup]="mainTheoriqueForm" class="flex flex-wrap gap-4 justify-center items-center min-h-screen">
+  <div class="flex gap-4 items-center justify-center w-full">
+    <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
+      <ul class="nav nav-tabs mb-4" id="mainTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">Main Théorique</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="material-tab" data-bs-toggle="tab" href="#material" role="tab" aria-controls="material" aria-selected="false">Ressources Matérielles</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="mainTabContent">
+        <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+          <div class="flex flex-col gap-4 p-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label class="text-white">Nom de la main :</label>
+                <input type="text" class="form-control" formControlName="nomMain">
+              </div>
+              <div class="form-group">
+                <label class="text-white">Type trafic :</label>
+                <select class="form-select" formControlName="typeTrafic">
+                  <option *ngFor="let type of typeTrafics" [value]="type.id">{{ type.type }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="text-white">Trafic :</label>
+                <select class="form-select" formControlName="trafic">
+                  <option *ngFor="let trafic of trafics" [value]="trafic.id">{{ trafic.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="material" role="tabpanel" aria-labelledby="material-tab">
+          <div class="flex flex-col gap-4 p-5">
+            <div formArrayName="equipements">
+              <div *ngFor="let equipement of equipements.controls; let i = index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="form-group">
+                  <label class="text-white">Equipement Famille :</label>
+                  <select class="form-select" formControlName="equipementFamille">
+                    <option *ngFor="let equipFam of equipementFamille" [value]="equipFam.id">{{ equipFam.nom }}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="text-white">Equipement :</label>
+                  <select class="form-select" formControlName="equipement">
+                    <option *ngFor="let equip of equipementsList[i]" [value]="equip.id">{{ equip.nom }}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="text-white">Accessoire :</label>
+                  <select class="form-select" formControlName="accessoire">
+                    <option *ngFor="let access of accessoiresList[i]" [value]="access.id">{{ access.nom }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-4" (click)="addEquipement()">Ajouter un autre équipement</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 items-center justify-center mt-4">
+        <button type="button" class="btn btn-primary" [disabled]="isFormInvalid()" (click)="onSubmit()">Valider</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import java.util.List;
 public class MainTheoriqueRequest {
     private String nom;
     private Long typeTraficIds;
-    private List<Long> traficIds;
+    private Long traficIds;
     private List<Long> equipementFamilleIds;
     private List<Long> equipementIds;
     private List<Long> accessoireIds;

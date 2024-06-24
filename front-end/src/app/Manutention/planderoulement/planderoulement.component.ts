@@ -4,6 +4,8 @@ import {EquipeService} from "../../services/equipe.service";
 import {EquipeRequestModel} from "../../models/equipe-request.model";
 import {ModeTravailRequest} from "../../models/modetravail-request.model";
 import {ModetravailService} from "../../services/modetravail.service";
+import {ShiftplanService} from "../../services/shiftplan.service";
+import {ShiftplanRequestModel} from "../../models/shiftplan-request.model";
 
 @Component({
   selector: 'app-planderoulement',
@@ -19,7 +21,8 @@ export class PlanDeRoulementComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private equipeService: EquipeService,
-    private modeTravailService: ModetravailService
+    private modeTravailService: ModetravailService,
+    private shiftPlanService : ShiftplanService
   ) {}
 
   ngOnInit(): void {
@@ -36,20 +39,25 @@ export class PlanDeRoulementComponent implements OnInit {
   }
 
   loadEquipes(): void {
-    this.equipeService.getEquipes().subscribe(
-      (data: EquipeRequestModel[]) => {
-        this.equipes = data;
+    this.equipeService.getEquipes().subscribe({
+      next : value => {
+        this.equipes = value;
+        console.log(this.equipes)
       },
-      error => {
-        console.error('Error fetching equipes', error);
+      error : err => {
+        console.error('Error fetching equipes', err);
       }
-    );
+    })
   }
 
   loadModeTravail(): void {
     this.modeTravailService.getModeDeTravail().subscribe(
       (data: ModeTravailRequest[]) => {
         this.modeTravail = data;
+        if (data.length > 0) {
+          this.planDeRoulementForm.controls['modeDeTravail'].setValue(data[0].semaine);
+          this.planDeRoulementForm.controls['shift'].setValue(data[0].jour);
+        }
       },
       error => {
         console.error('Error fetching mode de travail', error);
@@ -60,8 +68,27 @@ export class PlanDeRoulementComponent implements OnInit {
   onSubmit() {
     this.formSubmitted = true;
     if (this.planDeRoulementForm.valid) {
-      // Handle form submission
-      console.log(this.planDeRoulementForm.value);
+      const selectedEquipeId = this.planDeRoulementForm.get('equipe')?.value;
+      console.log(selectedEquipeId)
+      const formData = this.planDeRoulementForm.value;
+      console.log(typeof formData.equipe)
+      const shiftPlan: ShiftplanRequestModel = {
+        periode: formData.modeDeTravail,
+        dateDebut: formData.dateDebut,
+        dateFin: formData.dateFin,
+        modeTravailId: 1,
+        shift: formData.shift,
+        equipeId: Number(formData.equipe)
+      };
+      this.shiftPlanService.addShiftPlan(shiftPlan).subscribe({
+        next : value => {
+          console.log(value)
+        },
+        error : err => {
+          console.log(err)
+        }
+      })
+      console.log(shiftPlan)
     }
   }
 

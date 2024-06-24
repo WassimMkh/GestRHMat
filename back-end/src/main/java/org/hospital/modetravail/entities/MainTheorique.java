@@ -19,9 +19,9 @@ public class MainTheorique {
     private String nom;
     @ManyToOne
     private TypeTrafic typeTrafic;
-    @ManyToMany
+    @OneToOne
     @JsonIgnore
-    private Collection<Trafic> trafics;
+    private Trafic trafics;
     @OneToMany(mappedBy = "mainTheorique")
     @JsonIgnore
     private Collection<EquipementFamille> equipementFamilles;

@@ -201,39 +201,30 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
 
 
     @Override
-    public void incrementShiftPlan(String periode, Date dateDebut,
-                                   Date dateFin, Long modeTravailId,String shift,
-                                   Long equipeIds){
+    public void incrementShiftPlan(String periode, LocalDate dateDebut,
+                                   LocalDate dateFin, Long modeTravailId,String shift,
+                                   Long equipeId){
         ModeTravail modeTravail = modeTravailRepository.findById(modeTravailId).orElseThrow(()
                 -> new EntityNotFoundException("not found with id " ));
-        ;
-        Equipe equipes = equipeRepository.findById(equipeIds).orElseThrow(()
+        Equipe equipe = equipeRepository.findById(equipeId).orElseThrow(()
                 -> new EntityNotFoundException("not found with id " ));
         ShiftPlan shiftPlan =new ShiftPlan();
         shiftPlan.setPeriode(periode);
         shiftPlan.setModeTravail(modeTravail);
-        shiftPlan.setEquipe(equipes);
+        shiftPlan.setEquipe(equipe);
         shiftPlan.setDateDebut(dateDebut);
         shiftPlan.setDateFin(dateFin);
         shiftPlan.setShift(shift);
-        equipes.setShiftPlan(shiftPlan);
-        Collection<ShiftPlan> shiftPlans = modeTravail.getShiftPlans();
-        if (shiftPlans == null) {
-            shiftPlans = new ArrayList<>();
-            modeTravail.setShiftPlans(shiftPlans);
-        }
-        shiftPlans.add(shiftPlan);
-
-        modeTravailRepository.save(modeTravail);
-        equipeRepository.save(equipes);
+        equipe.setShiftPlan(shiftPlan);
+        equipeRepository.save(equipe);
         shiftPlanRepository.save(shiftPlan);
     }
 
     @Override
-    public void incrementMainTheorique(String nom,Long typeTraficIds, List<Long> traficIds,List<Long> equipementFamilleIds, List<Long> equipementIds, List<Long> accessoireIds) {
+    public void incrementMainTheorique(String nom,Long typeTraficIds, Long traficIds,List<Long> equipementFamilleIds, List<Long> equipementIds, List<Long> accessoireIds) {
         TypeTrafic typeTrafic=typeTraficRepository.findById(typeTraficIds).orElseThrow(()
                 -> new EntityNotFoundException("not found with id " ));
-        List<Trafic> trafics=traficRepository.findAllById(traficIds);
+        Trafic trafics=traficRepository.findByIdd(traficIds);
         List<EquipementFamille> equipementFamilles=equipementFamilleRepository.findAllById(equipementFamilleIds);
         List<Equipement> equipements=equipementRepository.findAllById(equipementIds);
         MainTheorique mainTheorique=new MainTheorique();
@@ -248,14 +239,16 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         }
 
 
-        for (Trafic trafic : trafics) {
-            Collection<MainTheorique> mainTheoriqueCollection = trafic.getMainTheorique();
-            if (mainTheoriqueCollection == null) {
-                mainTheoriqueCollection = new ArrayList<>();
-                trafic.setMainTheorique(mainTheoriqueCollection);
-            }
-            mainTheoriqueCollection.add(mainTheorique);
-        }
+//        for (Trafic trafic : trafics) {
+//            Collection<MainTheorique> mainTheoriqueCollection = trafic.getMainTheorique();
+//            if (mainTheoriqueCollection == null) {
+//                mainTheoriqueCollection = new ArrayList<>();
+//                trafic.setMainTheorique(mainTheoriqueCollection);
+//            }
+//            mainTheoriqueCollection.add(mainTheorique);
+//        }
+        Collection<MainTheorique> mainTheoriqueCollection = trafics.getMainTheorique();
+        mainTheoriqueCollection.add(mainTheorique);
         List<Accessoir> accessoirs=accessoirRepository.findAllById(accessoireIds);
         for (Accessoir accessoir : accessoirs) {
             int nouvelleQuantite = accessoir.getQuantite() - 1;
@@ -273,7 +266,7 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
         equipementFamilleRepository.saveAll(equipementFamilles);
         equipementRepository.saveAll(equipements);
         accessoirRepository.saveAll(accessoirs);
-        traficRepository.saveAll(trafics);
+        traficRepository.save(trafics);
         typeTraficRepository.save(typeTrafic);
     }
 
@@ -415,5 +408,9 @@ public class GestionRessourcesServiceImpl implements GestionRessourcesService {
     @Override
     public List<ModeTravail> getModeTravail() {
         return modeTravailRepository.findAll();
+    }
+
+    public List<EquipementFamille> getEquipementFamille() {
+        return equipementFamilleRepository.findAll();
     }
 }

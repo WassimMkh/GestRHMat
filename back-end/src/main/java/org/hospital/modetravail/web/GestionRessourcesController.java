@@ -44,18 +44,9 @@ public class GestionRessourcesController {
     public List<String> getFonctions() {
         return gestionRessourcesService.getFonctions();
     }
-//   @PostMapping("/cree-shiftPlan")
-//    public void incrementShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest){
-//        gestionRessourcesService.incrementShiftPlan(
-//                shiftPlanRequest.getPeriode(),
-//                shiftPlanRequest.getDateDebut(),
-//                shiftPlanRequest.getDateFin(),
-//                shiftPlanRequest.getModeTravailId(),
-//                shiftPlanRequest.getShift(),
-//                shiftPlanRequest.getEquipeIds());
-//    }
 @PostMapping("/cree-shiftPlan")
 public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest) {
+    System.out.println(shiftPlanRequest);
     try {
         gestionRessourcesService.incrementShiftPlan(
                 shiftPlanRequest.getPeriode(),
@@ -63,7 +54,7 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
                 shiftPlanRequest.getDateFin(),
                 shiftPlanRequest.getModeTravailId(),
                 shiftPlanRequest.getShift(),
-                shiftPlanRequest.getEquipeIds()
+                shiftPlanRequest.getEquipeId()
         );
         return ResponseEntity.ok("Shift plan created successfully");
     } catch (Exception e) {
@@ -150,6 +141,30 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
     @GetMapping("/modedetravail")
     public List<ModeTravail> getModeDeTravail() {
         return gestionRessourcesService.getModeTravail();
+    }
+
+    @GetMapping("/typetrafic")
+    public List<TypeTrafic> getTypeTrafic() {
+        return gestionRessourcesService.getTypeTrafic();
+    }
+    @GetMapping("/typetrafic/trafic/{id}")
+    public List<Trafic> getTraficByTypeTrafic(@PathVariable("id") Long id) {
+        return gestionRessourcesService.getTraficBYTypetrafic(id);
+    }
+
+    @GetMapping("/equipementfamille/equipement/{id}")
+    public List<Equipement> getEquipementByEquipementFamille(@PathVariable("id") Long id) {
+        return gestionRessourcesService.getEquipementByEquipementFamille(id);
+    }
+
+    @GetMapping("/equipementfamille/accessoir/{id}")
+    public List<Accessoir> getAccessoirByEquipementFamille(@PathVariable("id") Long id ) {
+        return gestionRessourcesService.getAccessoirByEquipementFamille(id);
+    }
+
+    @GetMapping("/equipementfamille")
+    public List<EquipementFamille> getEquipementFamille()  {
+        return gestionRessourcesService.getEquipementFamille();
     }
 
 }

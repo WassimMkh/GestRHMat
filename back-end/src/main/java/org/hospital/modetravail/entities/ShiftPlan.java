@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,11 @@ public class ShiftPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String periode;
-    private Date dateDebut;
-    private Date dateFin;
+    private LocalDate dateDebut;
+    private LocalDate dateFin;
     private String shift;
     @OneToOne
+    @JsonIgnore
     private Equipe equipe;
     @ManyToOne
     @JsonIgnore

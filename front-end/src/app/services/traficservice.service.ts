@@ -13,4 +13,7 @@ export class TraficserviceService {
   getTraficName(mainId : number) : Observable<traficRequest[]> {
     return this.http.get<traficRequest[]>(`${this.host}/maintheorique/${mainId}`);
   }
+  getTraficByTypeTrafic(typeTraficId : number) : Observable<traficRequest[]>{
+    return this.http.get<traficRequest[]>(`${this.host}/typetrafic/trafic/${typeTraficId}`)
+  }
 }

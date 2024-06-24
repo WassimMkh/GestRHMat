@@ -26,8 +26,8 @@ public interface GestionRessourcesService {
     public void incrementModeTravail(String semaine, String jour);
     public  void incrementPeriodeShift(String normalShift1,  String normalShift2, String normalShift3,String ramadanShift1,String ramadanShift2, String ramadanShift3,LocalDate ramadanStartDate,LocalDate ramadanEndDate) ;
     public  void incrementEquipe(String nom, String responsable, List<Long> employeIds);
-    public void incrementShiftPlan(String periode, Date dateDebut, Date datefin, Long modeTravailId, String shift, Long equipeIds);
-    public void incrementMainTheorique(String nom,Long typeTraficIds, List<Long> traficIds,List<Long> equipementFamilleIds, List<Long> equipementIds, List<Long> accessoireIds);
+    public void incrementShiftPlan(String periode, LocalDate dateDebut, LocalDate datefin, Long modeTravailId, String shift, Long equipeId);
+    public void incrementMainTheorique(String nom,Long typeTraficIds, Long traficIds,List<Long> equipementFamilleIds, List<Long> equipementIds, List<Long> accessoireIds);
     public void incrementNormeProductivite(Long traficId, Long mainTheoriqueId,
                                            Long modeId,
                                            int norme,String sens,String suiviProduit);
@@ -54,5 +54,7 @@ public interface GestionRessourcesService {
     public void updatePeriodeShift(Long id,LocalDate ramadanStartDate, LocalDate ramadanEndDate);
 
     public List<ModeTravail> getModeTravail();
+
+    public List<EquipementFamille> getEquipementFamille();
 
 }

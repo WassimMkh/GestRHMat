@@ -13,4 +13,6 @@ public interface TraficRepository extends JpaRepository<Trafic, Long> {
     List<Trafic> findAllByMainId(@Param("id") Long id);
 
     List<Trafic> findByTypeTrafic_Id(Long id);
+    @Query("SELECT t FROM Trafic t WHERE t.id = :id")
+    Trafic findByIdd(@Param("id") Long Id);
 }
