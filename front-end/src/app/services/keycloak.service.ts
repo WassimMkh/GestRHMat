@@ -40,7 +40,7 @@ export class KeycloakService {
       console.log(this.profile.token);
       console.log(this.profile.roles);
       if (this.profile.roles.includes("admin")) {
-        this.router.navigate(['authentification']);
+        this.router.navigate(['hhhh']);
       }
       if (this.profile.roles.includes("rh")) {
         this.router.navigate(['manutention']);

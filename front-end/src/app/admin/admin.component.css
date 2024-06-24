@@ -2,11 +2,9 @@ body {
   background-color: #343a40;
   color: #fff;
 }
-
 .nav-tabs {
   border-bottom: none;
 }
-
 .nav-link {
   color: white;
   background-color: #2c2c2c;
@@ -15,52 +13,44 @@ body {
   padding: 10px 20px;
   margin-right: 5px;
 }
-
 .nav-link.active {
   color: white;
   background-color: #555;
   border-bottom: 3px solid orange;
 }
-
 .tab-content {
   background-color: #2c2c2c;
   padding: 20px;
   border-radius: 0 0 10px 10px;
   color: white;
 }
-
 .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
 }
-
 .btn-secondary {
   background-color: #6c757d;
   border-color: #6c757d;
 }
-
 .form-control {
-  background-color: #2c2c2c;
-  color: white;
+  background-color: #fff; /* Set background color to white */
+  color: #000; /* Set text color to black */
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   padding: 0.375rem 0.75rem;
   width: 100%;
 }
-
 .form-select {
-  background-color: #2c2c2c;
-  color: white;
+  background-color: #fff; /* Set background color to white */
+  color: #000; /* Set text color to black */
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   padding: 0.375rem 0.75rem;
   width: 100%;
 }
-
 .form-group {
   margin-bottom: 1rem;
 }
-
 .btn {
   cursor: pointer;
   user-select: none;
@@ -73,35 +63,31 @@ body {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
   box-shadow 0.15s ease-in-out;
 }
-
 .btn:hover {
   filter: brightness(90%);
 }
-
 .transform {
   transform: scale(1);
 }
-
 .transition-transform {
   transition: transform 0.1s ease-in-out;
 }
-
 .duration-100 {
   transition-duration: 100ms;
 }
-
 .ease-in-out {
   transition-timing-function: ease-in-out;
 }
-
 .hover\:scale-105:hover {
   transform: scale(1.05);
 }
-
 .active\:translate-y-1:active {
   transform: translateY(0.25rem);
 }
-
 .active\:shadow-inner:active {
   box-shadow: inset 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+.custom-form {
+  max-width: 600px; /* Set the maximum width of the form */
+  margin: auto; /* Center the form */
 }
