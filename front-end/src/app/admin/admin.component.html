@@ -3,14 +3,14 @@
   <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
     <ul class="nav nav-tabs mb-4">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Ajouter Responsable</a>
+        <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#ajouter" role="tab" aria-controls="ajouter" aria-selected="true">Ajouter Responsable</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Gérer employés</a>
+        <a class="nav-link" id="gerer-tab" data-bs-toggle="tab" href="#gerer" role="tab" aria-controls="gerer" aria-selected="false">Gérer employé</a>
       </li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane fade show active">
+      <div class="tab-pane fade show active" id="ajouter" role="tabpanel" aria-labelledby="main-tab">
         <!-- Contenu du formulaire -->
         <form class="p-5 custom-form">
           <div class="form-group row">
@@ -45,11 +45,78 @@
           </div>
         </form>
       </div>
-      <div class="tab-pane fade">
-        <!-- Contenu pour télécharger un fichier -->
-        <div class="flex flex-col items-center gap-4">
-          <!-- Insérer ici le contenu pour télécharger un fichier -->
+      <div class="tab-pane fade" id="gerer" role="tabpanel" aria-labelledby="gerer-tab">
+        <!-- Contenu pour gérer les employés -->
+        <div class="employee-list">
+          <button class="btn btn-success mb-3">Ajouter Employé</button>
+          <div class="employee-item">
+            <span>Rachid777</span>
+            <div class="functions">
+              <select class="form-select function-select">
+                <option value="CE">CE</option>
+                <option value="CER">CER</option>
+                <option value="Grutier">Grutier</option>
+                <option value="CEQ">CEQ</option>
+              </select>
+              <button class="btn btn-warning btn-sm ml-auto">Modifier</button>
+              <button class="btn btn-danger btn-sm">Supprimer</button>
+            </div>
+          </div>
+          <div class="employee-item">
+            <span>Amin123</span>
+            <div class="functions">
+              <select class="form-select function-select">
+                <option value="CE">CE</option>
+                <option value="CER">CER</option>
+                <option value="Grutier">Grutier</option>
+                <option value="CEQ">CEQ</option>
+              </select>
+              <button class="btn btn-warning btn-sm ml-auto">Modifier</button>
+              <button class="btn btn-danger btn-sm">Supprimer</button>
+            </div>
+          </div>
+          <div class="employee-item">
+            <span>ilha456</span>
+            <div class="functions">
+              <select class="form-select function-select">
+                <option value="CE">CE</option>
+                <option value="CER">CER</option>
+                <option value="Grutier">Grutier</option>
+                <option value="CEQ">CEQ</option>
+              </select>
+              <button class="btn btn-warning btn-sm ml-auto">Modifier</button>
+              <button class="btn btn-danger btn-sm">Supprimer</button>
+            </div>
+          </div>
+          <div class="employee-item">
+            <span>Adil880</span>
+            <div class="functions">
+              <select class="form-select function-select">
+                <option value="CE">CE</option>
+                <option value="CER">CER</option>
+                <option value="Grutier">Grutier</option>
+                <option value="CEQ">CEQ</option>
+              </select>
+              <button class="btn btn-warning btn-sm ml-auto">Modifier</button>
+              <button class="btn btn-danger btn-sm">Supprimer</button>
+            </div>
+          </div>
         </div>
+        <nav class="pagination" aria-label="Navigation par pagination">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">1 <span class="sr-only">(page actuelle)</span></a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Suivant</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
     <div class="flex justify-around mt-6">
@@ -58,4 +125,5 @@
     </div>
   </div>
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -91,3 +91,46 @@ body {
   max-width: 600px; /* Set the maximum width of the form */
   margin: auto; /* Center the form */
 }
+.employee-list {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+}
+.employee-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #555;
+}
+.employee-item:last-child {
+  border-bottom: none;
+}
+.functions {
+  display: flex;
+  gap: 10px;
+}
+.function-select {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+}
+.function-btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+.pagination .page-item .page-link {
+  background-color: #2c2c2c;
+  color: white;
+  border: 1px solid #555;
+}
+.pagination .page-item.active .page-link {
+  background-color: #555;
+  border-color: orange;
+}
