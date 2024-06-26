@@ -23,8 +23,9 @@ import { PlanDeRoulementComponent } from './Manutention/planderoulement/plandero
 import { MaintheoriqueComponent } from './Manutention/maintheorique/maintheorique.component';
 import { AdminComponent } from './admin/admin.component';
 import { ToastComponent } from './toast/toast.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 import {ToastrModule} from "ngx-toastr";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -59,7 +60,7 @@ export function kcFactory(kcService : KeycloakService)  {
       positionClass : 'toast-bottom-right',
       timeOut : 2500,
       progressBar : true
-    })
+    }),
   ],
     providers: [
       HttpClient,

@@ -1,61 +1,157 @@
-<body>
+<nav class="navbar">
+  <div class="navbar-left">
+    <a class="nav-logo">
+      <img src="assets/R.png" alt="Company Logo" />
+    </a>
+  </div>
+  <div class="navbar-right">
+    <button class="logout-button" (click)="onLogout()">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
+      </svg>
+      <span class="logout-text">Se déconnecter</span>
+    </button>
+  </div>
+
+</nav>
 <div class="flex flex-col items-center justify-center min-h-screen">
   <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
     <ul class="nav nav-tabs mb-4">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Ajouter Responsable</a>
+        <a class="nav-link active" id="gerer-tab" data-bs-toggle="tab" href="#gerer" role="tab" aria-controls="gerer" aria-selected="true">Gérer employé</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Gérer employés</a>
+        <a class="nav-link" id="responsable-tab" data-bs-toggle="tab" href="#responsable" role="tab" aria-controls="responsable" aria-selected="false">Gérer Responsable</a>
       </li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane fade show active">
-        <!-- Contenu du formulaire -->
-        <form class="p-5 custom-form">
-          <div class="form-group row">
-            <label for="matricule" class="col-sm-2 col-form-label">Matricule</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="matricule" placeholder="Entrez le matricule">
+      <div class="tab-pane fade show active" id="gerer" role="tabpanel" aria-labelledby="gerer-tab">
+        <div class="employee-list">
+          <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Ajouter Employé</button>
+
+          <div *ngFor="let employee of employees | paginate: { itemsPerPage: 5, currentPage: page }" class="employee-item">
+            <span>{{ employee.nom }}</span>
+            <div class="functions">
+              <select class="form-select function-select" [(ngModel)]="employee.fonction">
+                <option value="CE">CE</option>
+                <option value="CER">CER</option>
+                <option value="Grutier">Grutier</option>
+                <option value="CEQ">CEQ</option>
+              </select>
+              <button class="btn btn-warning btn-sm ml-auto" data-bs-toggle="modal" data-bs-target="#updateEmployeeModal" (click)="onEditEmployee(employee)">Modifier</button>
+              <button class="btn btn-danger btn-sm" (click)="onDeleteEmployee(employee.id)">Supprimer</button>
             </div>
           </div>
-          <div class="form-group row">
-            <label for="nom" class="col-sm-2 col-form-label">Nom</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="nom" placeholder="Entrez le nom">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="prenom" class="col-sm-2 col-form-label">Prénom</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="prenom" placeholder="Entrez le prénom">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="motdepasse" class="col-sm-2 col-form-label">Mot de passe</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="motdepasse" placeholder="Entrez le mot de passe">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="confirmermotdepasse" class="col-sm-2 col-form-label">Confirmer le mot de passe</label>
-            <div class="col-sm-10">
-              <input type="password" class="form-control" id="confirmermotdepasse" placeholder="Confirmez le mot de passe">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="tab-pane fade">
-        <!-- Contenu pour télécharger un fichier -->
-        <div class="flex flex-col items-center gap-4">
-          <!-- Insérer ici le contenu pour télécharger un fichier -->
+
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
         </div>
       </div>
-    </div>
-    <div class="flex justify-around mt-6">
-      <button type="submit" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
-      <button type="button" class="btn btn-secondary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
+      <div class="tab-pane fade" id="responsable" role="tabpanel" aria-labelledby="responsable-tab">
+        <div class="responsable-list">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="ajouter" role="tabpanel" aria-labelledby="main-tab">
+              <!-- Contenu du formulaire -->
+              <form class="p-5 custom-form">
+                <div class="form-group row">
+                  <label for="matricule" class="col-sm-2 col-form-label">Matricule</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="matricule" placeholder="Entrez le matricule">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nom" placeholder="Entrez le nom">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="prenom" class="col-sm-2 col-form-label">Prénom</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="prenom" placeholder="Entrez le prénom">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="motdepasse" class="col-sm-2 col-form-label">Mot de passe</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="motdepasse" placeholder="Entrez le mot de passe">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="confirmermotdepasse" class="col-sm-2 col-form-label">Confirmer le mot de passe</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="confirmermotdepasse" placeholder="Confirmez le mot de passe">
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+        <div class="flex justify-around mt-6">
+          <button type="submit" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
+          <button type="button" class="btn btn-secondary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
+        </div>
     </div>
   </div>
 </div>
-</body>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEmployeeModalLabel">Ajouter Employé</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onAddEmployee()">
+          <div class="mb-3">
+            <label for="add-name" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="add-name" [(ngModel)]="newEmployee.nom" name="nom" placeholder="Entrez le nom">
+          </div>
+          <div class="mb-3">
+            <label for="add-function" class="form-label">Fonction</label>
+            <select class="form-select" id="add-function" [(ngModel)]="newEmployee.fonction" name="fonction">
+              <option value="CE">CE</option>
+              <option value="CER">CER</option>
+              <option value="Grutier">Grutier</option>
+              <option value="CEQ">CEQ</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Update Employee Modal -->
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" aria-labelledby="updateEmployeeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Employé</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onUpdateEmployee()">
+          <div class="mb-3">
+            <label for="update-name" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="update-name" [(ngModel)]="selectedEmployee.nom" name="nom" placeholder="Entrez le nom">
+          </div>
+          <div class="mb-3">
+            <label for="update-function" class="form-label">Fonction</label>
+            <select class="form-select" id="update-function" [(ngModel)]="selectedEmployee.fonction" name="fonction">
+              <option value="CE">CE</option>
+              <option value="CER">CER</option>
+              <option value="Grutier">Grutier</option>
+              <option value="CEQ">CEQ</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

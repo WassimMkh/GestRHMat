@@ -5,6 +5,6 @@ export interface EmployeRequestModel {
   id : number,
   nom : string,
   fonction : string,
-  equipe : EquipeRequestModel
+  equipe : EquipeRequestModel | null
 }
 

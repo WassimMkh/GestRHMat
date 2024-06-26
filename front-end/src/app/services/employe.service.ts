@@ -14,7 +14,7 @@ export class EmployeService {
   getEmploye() : Observable<EmployeRequestModel[]> {
     return this.http.get<EmployeRequestModel[]>(`${this.host}/employes`);
   }
-  addEmploye(employe : EquipeRequestModel) {
+  addEmploye(employe : EmployeRequestModel) {
     return this.http.post(`${this.host}/cree_employe`,employe);
   }
   updateEmploye(employeId : number,employe : EmployeRequestModel) {
