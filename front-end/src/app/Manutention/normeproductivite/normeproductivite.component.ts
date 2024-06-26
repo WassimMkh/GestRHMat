@@ -9,7 +9,8 @@ import {NormeProductiviteService} from "../../services/norme-productivite.servic
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NormeproductRequest} from "../../models/normeproduct-request.model";
 import {ToastrService} from "ngx-toastr";
-
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-normeproductivite',
@@ -193,5 +194,54 @@ export class NormeproductiviteComponent  implements OnInit{
   }
 
   downloadFile() {
+    this.normeProductiviteService.getNormeProductivite().subscribe(data => {
+      const doc = new jsPDF();
+
+      // Load the logo image
+      const logoImg = 'assets/Marsa-Maroc-Logo.png';
+
+      // Adjust the position of the logo (right side) and title (left side)
+      const logoWidth = 40;
+      const logoHeight = 20;
+      const logoXPosition = doc.internal.pageSize.getWidth() - logoWidth - 10; // Position logo 10 units from the right edge
+      const logoYPosition = 10;
+
+      doc.addImage(logoImg, 'PNG', logoXPosition, logoYPosition, logoWidth, logoHeight);
+
+      const title = 'Norme de Productivité';
+      doc.setFontSize(18);
+      doc.text(title, 10, 20); // Position title 10 units from the left edge and 20 units from the top
+
+      // Define the columns and rows
+      const col = ['Trafic', 'Main théorique', 'Mode', 'Norme', 'Sens'];
+      const rows: Array<Array<string | number>> = [];
+
+      data.forEach(norme => {
+        const traficName = norme.trafic ? norme.trafic.name : 'N/A';
+        const mainTheoriqueNom = norme.mainTheorique ? norme.mainTheorique.nom : 'N/A';
+        const modeNom = norme.mode ? norme.mode.nom : 'N/A';
+
+        const temp: [string, string, string, number, string] = [
+          traficName,
+          mainTheoriqueNom,
+          modeNom,
+          norme.norme,
+          norme.sens
+        ];
+
+        rows.push(temp);
+      });
+
+      // Add the table below the title
+      (doc as any).autoTable({
+        startY: 40, // Adjust the start position of the table to leave space for the title and logo
+        head: [col],
+        body: rows
+      });
+
+      doc.save(`${this.fileName}.pdf`);
+    }, error => {
+      console.error('Error fetching norme productivite:', error);
+    });
   }
 }
