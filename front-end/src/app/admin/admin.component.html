@@ -3,74 +3,59 @@
   <div class="w-full max-w-4xl bg-black bg-opacity-70 rounded-lg shadow-lg p-4">
     <ul class="nav nav-tabs mb-4">
       <li class="nav-item">
-        <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#ajouter" role="tab" aria-controls="ajouter" aria-selected="true">Ajouter Responsable</a>
+        <a class="nav-link active" href="#">Ajouter Responsable</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="gerer-tab" data-bs-toggle="tab" href="#gerer" role="tab" aria-controls="gerer" aria-selected="false">Gérer employé</a>
+        <a class="nav-link" href="#">Gérer employés</a>
       </li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane fade show active" id="ajouter" role="tabpanel" aria-labelledby="main-tab">
+      <div class="tab-pane fade show active">
         <!-- Contenu du formulaire -->
-        <form [formGroup]="userForm" class="p-5 custom-form" (ngSubmit)="onSubmit()">
+        <form class="p-5 custom-form">
           <div class="form-group row">
             <label for="matricule" class="col-sm-2 col-form-label">Matricule</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="matricule" formControlName="matricule" placeholder="Entrez le matricule">
+              <input type="text" class="form-control" id="matricule" placeholder="Entrez le matricule">
             </div>
           </div>
           <div class="form-group row">
             <label for="nom" class="col-sm-2 col-form-label">Nom</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrez le nom">
+              <input type="text" class="form-control" id="nom" placeholder="Entrez le nom">
             </div>
           </div>
           <div class="form-group row">
             <label for="prenom" class="col-sm-2 col-form-label">Prénom</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="prenom" formControlName="prenom" placeholder="Entrez le prénom">
+              <input type="text" class="form-control" id="prenom" placeholder="Entrez le prénom">
             </div>
           </div>
           <div class="form-group row">
-            <label for="password" class="col-sm-2 col-form-label">Mot de passe</label>
+            <label for="motdepasse" class="col-sm-2 col-form-label">Mot de passe</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Entrez le mot de passe">
+              <input type="password" class="form-control" id="motdepasse" placeholder="Entrez le mot de passe">
             </div>
           </div>
           <div class="form-group row">
-            <label for="confirmPassword" class="col-sm-2 col-form-label">Confirmer le mot de passe</label>
+            <label for="confirmermotdepasse" class="col-sm-2 col-form-label">Confirmer le mot de passe</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirmez le mot de passe">
+              <input type="password" class="form-control" id="confirmermotdepasse" placeholder="Confirmez le mot de passe">
             </div>
-          </div>
-          <div class="flex justify-around mt-6">
-            <button type="submit" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
-            <button type="button" class="btn btn-secondary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
           </div>
         </form>
       </div>
-      <div class="tab-pane fade" id="gerer" role="tabpanel" aria-labelledby="gerer-tab">
-        <!-- Contenu pour gérer les employés -->
-        <div class="employee-list">
-          <button class="btn btn-success mb-3">Ajouter Employé</button>
-          <div *ngFor="let employe of employes | paginate: { itemsPerPage: 4, currentPage: page }" class="employee-item">
-            <span>{{ employe.nom }}</span>
-            <div class="functions">
-              <select class="form-select function-select">
-                <option value="CE" [selected]="employe.fonction === 'CE'">CE</option>
-                <option value="CER" [selected]="employe.fonction === 'CER'">CER</option>
-                <option value="Grutier" [selected]="employe.fonction === 'Grutier'">Grutier</option>
-                <option value="CEQ" [selected]="employe.fonction === 'CEQ'">CEQ</option>
-              </select>
-              <button class="btn btn-warning btn-sm ml-auto">Modifier</button>
-              <button class="btn btn-danger btn-sm">Supprimer</button>
-            </div>
-          </div>
+      <div class="tab-pane fade">
+        <!-- Contenu pour télécharger un fichier -->
+        <div class="flex flex-col items-center gap-4">
+          <!-- Insérer ici le contenu pour télécharger un fichier -->
         </div>
-        <pagination-controls (pageChange)="page = $event"></pagination-controls>
       </div>
+    </div>
+    <div class="flex justify-around mt-6">
+      <button type="submit" class="btn btn-primary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Valider</button>
+      <button type="button" class="btn btn-secondary transform transition-transform duration-100 ease-in-out hover:scale-105 active:translate-y-1 active:shadow-inner">Annuler</button>
     </div>
   </div>
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -8,12 +8,10 @@ import { EquipeComponent } from "./Manutention/equipe/equipe.component";
 import { ManutentionComponent } from "./Manutention/manutention.component";
 import {PlanDeRoulementComponent} from "./Manutention/planderoulement/planderoulement.component";
 import {MaintheoriqueComponent} from "./Manutention/maintheorique/maintheorique.component";
-import {AdminComponent} from "./admin/admin.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "authentification", pathMatch: "full" },
   { path: "authentification", component: AuthentificationComponent },
-  {path : "admin",component : AdminComponent},
   {
     path: "manutention", component: ManutentionComponent,
     children: [
