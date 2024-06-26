@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {EquipeService} from "../../services/equipe.service";
 import {EmployeRequestModel} from "../../models/employe-request.model";
 import {EquipeRequestModel} from "../../models/equipe-request.model";
+import {Toast, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-equipe',
@@ -19,10 +20,12 @@ export class EquipeComponent implements OnInit{
   employes!: EmployeRequestModel[];
   selectedAvailableMembers: EmployeRequestModel[] = [];
   selectedSelectedMembers: EmployeRequestModel[] = [];
+  checkEquipe! : Boolean;
 
   constructor(
     private fb: FormBuilder,
-    private equipeService: EquipeService
+    private equipeService: EquipeService,
+    private toastr : ToastrService
   ) { }
 
   initForm() {
@@ -66,16 +69,28 @@ export class EquipeComponent implements OnInit{
         employeIds : this.selectedMembers.map(member => member.id ),
         shiftId : null
       };
-      console.log(equipe);
-      this.equipeService.addEquipe(equipe).subscribe({
+      this.equipeService.checkEquipeNom(equipe.nom).subscribe({
         next : value => {
-         console.log(value)
-         this.onCancel();
-       },
+          this.checkEquipe = value;
+          if (!this.checkEquipe) {
+            this.equipeService.addEquipe(equipe).subscribe({
+              next: value => {
+                console.log(value);
+                this.toastr.success("Equipe créé avec succès", "Succès");
+                this.onCancel();
+              },
+              error: err => {
+                this.toastr.error(err, "Erreur");
+              }
+            });
+          } else {
+            this.toastr.warning("Nom équipe existant", "Alerte");
+          }
+        },
         error : err => {
           console.log(err)
         }
-       })
+      });
     } else {
       console.error('Form is invalid or no members selected');
     }

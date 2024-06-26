@@ -3,6 +3,7 @@ package org.hospital.modetravail.web;
 import jakarta.persistence.EntityNotFoundException;
 import org.hospital.modetravail.entities.*;
 import org.hospital.modetravail.repository.ModeRepository;
+import org.hospital.modetravail.repository.ShiftPlanRepository;
 import org.hospital.modetravail.requests.*;
 import org.hospital.modetravail.service.GestionRessourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,24 +45,29 @@ public class GestionRessourcesController {
     public List<String> getFonctions() {
         return gestionRessourcesService.getFonctions();
     }
-@PostMapping("/cree-shiftPlan")
-public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest) {
-    System.out.println(shiftPlanRequest);
-    try {
-        gestionRessourcesService.incrementShiftPlan(
-                shiftPlanRequest.getPeriode(),
-                shiftPlanRequest.getDateDebut(),
-                shiftPlanRequest.getDateFin(),
-                shiftPlanRequest.getModeTravailId(),
-                shiftPlanRequest.getShift(),
-                shiftPlanRequest.getEquipeId()
-        );
-        return ResponseEntity.ok("Shift plan created successfully");
-    } catch (Exception e) {
-        e.printStackTrace(); // Log the exception
-        return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
+    @PostMapping("/cree-shiftPlan")
+    public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shiftPlanRequest) {
+        System.out.println(shiftPlanRequest);
+        try {
+            gestionRessourcesService.incrementShiftPlan(
+                    shiftPlanRequest.getPeriode(),
+                    shiftPlanRequest.getDateDebut(),
+                    shiftPlanRequest.getDateFin(),
+                    shiftPlanRequest.getModeTravailId(),
+                    shiftPlanRequest.getShift(),
+                    shiftPlanRequest.getEquipeId()
+            );
+            return ResponseEntity.ok("Shift plan created successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(409).body(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
+        }
     }
-}
+
     @PostMapping("/cree-maintheorique")
     public void incrementMainTheorique(@RequestBody MainTheoriqueRequest mainTheoriqueRequest){
         gestionRessourcesService.incrementMainTheorique(mainTheoriqueRequest.getNom(),mainTheoriqueRequest.getTypeTraficIds(),mainTheoriqueRequest.getTraficIds(),mainTheoriqueRequest.getEquipementFamilleIds(),mainTheoriqueRequest.getEquipementIds(),mainTheoriqueRequest.getAccessoireIds());
@@ -167,4 +173,49 @@ public ResponseEntity<String> createShiftPlan(@RequestBody ShiftPlanRequest shif
         return gestionRessourcesService.getEquipementFamille();
     }
 
+    @GetMapping("equipes/{nom}")
+    public Boolean checkEquipeNom(@PathVariable("nom") String nom) {
+        return gestionRessourcesService.checkEquipeNom(nom);
+    }
+
+    @PutMapping("/shiftplan/{id}")
+    public void updateShiftPlan(@PathVariable("id") Long id,@RequestBody ShiftPlanRequest shiftPlanRequest) {
+        System.out.println("id = " + id);
+        System.out.println(shiftPlanRequest);
+        gestionRessourcesService.updateShiftPlan(id,
+                shiftPlanRequest.getPeriode(),
+                shiftPlanRequest.getDateDebut(),
+                shiftPlanRequest.getDateFin(),
+                shiftPlanRequest.getShift(),
+                shiftPlanRequest.getEquipeId(),
+                shiftPlanRequest.getModeTravailId()
+        );
+    }
+    @GetMapping("/exist/{equipeId}")
+    public ResponseEntity<ShiftPlan> checkShiftPlanExists(@PathVariable("equipeId") Long equipeId) {
+        ShiftPlan shiftPlan = gestionRessourcesService.checkShiftPlanExists(equipeId);
+        if (shiftPlan != null) {
+            return ResponseEntity.ok(shiftPlan);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/employes")
+    public List<Employe> getEmployes() {
+        return  gestionRessourcesService.getEmployes();
+    }
+
+    @PostMapping("/cree_employe")
+    public  void addEmploye(@RequestBody EmployeRequesrt employeRequesrt) {
+        gestionRessourcesService.addEmploye(employeRequesrt.getFonction(),employeRequesrt.getNom());
+    }
+    @PutMapping("/employes/{id}")
+    public void updateEmploye(@PathVariable Long id, @RequestBody EmployeRequesrt employeRequesrt) {
+        gestionRessourcesService.updateEmploye(id,employeRequesrt.getFonction(),employeRequesrt.getNom());
+    }
+    @DeleteMapping("employes/delete/{id}")
+    public void deleteEmploye(@PathVariable Long id) {
+        gestionRessourcesService.deleteEmploye(id);
+    }
 }

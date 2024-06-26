@@ -22,6 +22,9 @@ import {ManutentionComponent} from "./Manutention/manutention.component";
 import { PlanDeRoulementComponent } from './Manutention/planderoulement/planderoulement.component';
 import { MaintheoriqueComponent } from './Manutention/maintheorique/maintheorique.component';
 import { AdminComponent } from './admin/admin.component';
+import { ToastComponent } from './toast/toast.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastrModule} from "ngx-toastr";
 export function kcFactory(kcService : KeycloakService)  {
   return () => kcService.init();
 }
@@ -40,6 +43,7 @@ export function kcFactory(kcService : KeycloakService)  {
     PlanDeRoulementComponent,
     MaintheoriqueComponent,
     AdminComponent,
+    ToastComponent,
 
   ],
   imports: [
@@ -49,6 +53,13 @@ export function kcFactory(kcService : KeycloakService)  {
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      preventDuplicates : true,
+      positionClass : 'toast-bottom-right',
+      timeOut : 2500,
+      progressBar : true
+    })
   ],
     providers: [
       HttpClient,

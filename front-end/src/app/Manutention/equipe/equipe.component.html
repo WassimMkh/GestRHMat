@@ -38,9 +38,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="formSubmitted && equipeForm.invalid" class="text-red-500 mt-2">
-              Veuillez remplir tous les champs correctement.
-            </div>
+
           </div>
         </div>
 
@@ -64,7 +62,6 @@
           </div>
         </div>
       </div>
-
       <div class="flex justify-around mt-6">
         <button type="submit" (click)="onSubmit()" [ngClass]="{'btn-secondary': isFormInvalid()}" [disabled]="isFormInvalid()" class="btn btn-primary">Valider</button>
         <button type="button" (click)="onCancel()" class="btn btn-secondary">Annuler</button>

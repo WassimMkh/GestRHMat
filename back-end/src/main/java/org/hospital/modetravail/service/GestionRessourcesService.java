@@ -57,4 +57,22 @@ public interface GestionRessourcesService {
 
     public List<EquipementFamille> getEquipementFamille();
 
+    public Boolean checkEquipeNom(String equipeNom);
+
+    public void updateShiftPlan(Long id,
+                                String periode,
+                                LocalDate dateDebut,
+                                LocalDate dateFin,
+                                String shift,
+                                Long equipeId,
+                                Long modeTravailId
+                                );
+
+    public ShiftPlan checkShiftPlanExists(Long equipeId);
+    public List<Employe> getEmployes();
+
+    public void addEmploye(String fonction , String nom);
+    public void updateEmploye(Long id, String fonction , String nom);
+    public void deleteEmploye(Long id);
+
 }

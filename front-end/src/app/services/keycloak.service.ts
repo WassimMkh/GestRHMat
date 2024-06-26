@@ -3,6 +3,7 @@ import Keycloak from "keycloak-js";
 import {UserRequestModel} from "../models/user-request.model";
 import {Router} from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class KeycloakService {
     return this.profile!;
   }
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute,private http: HttpClient) { }
 
   async init() {
     console.log("Authentication ......");
@@ -40,7 +41,7 @@ export class KeycloakService {
       console.log(this.profile.token);
       console.log(this.profile.roles);
       if (this.profile.roles.includes("admin")) {
-        this.router.navigate(['hhhh']);
+        this.router.navigate(['admin']);
       }
       if (this.profile.roles.includes("rh")) {
         this.router.navigate(['manutention']);
@@ -56,5 +57,14 @@ export class KeycloakService {
     return this._Keycloak?.logout({
       redirectUri: 'http://localhost:4200'
     });
+  }
+
+  addUser(user: any) {
+    const url = 'http://localhost:8080/auth/admin/realms/marsa_maroc_realm/users';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.Keycloak.token}`
+    });
+    return this.http.post(url, user, { headers });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { ModeTravailRequest } from "../../models/modetravail-request.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-modetravail',
@@ -12,7 +13,7 @@ export class ModetravailComponent implements OnInit {
   modeTravailForm: FormGroup;
   formSubmitted: boolean = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private toastr: ToastrService) {
     this.modeTravailForm = new FormGroup({
       semaine: new FormControl("", [Validators.required]),
       jour: new FormControl("", [Validators.required]),
@@ -31,9 +32,11 @@ export class ModetravailComponent implements OnInit {
       this.http.post('http://localhost:8088/increment-modetravail', modeTravailRequest).subscribe(
         response => {
           console.log('Form submitted successfully', response);
+          this.toastr.success("Mode de travail créé avec succès","Succès")
         },
         error => {
           console.error('Error submitting form', error);
+          this.toastr.error(error,"Erreur")
         }
       );
     } else {

@@ -8,6 +8,7 @@ import {ModeRequest} from "../../models/mode-request.model";
 import {NormeProductiviteService} from "../../services/norme-productivite.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NormeproductRequest} from "../../models/normeproduct-request.model";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -34,7 +35,9 @@ export class NormeproductiviteComponent  implements OnInit{
               private mainTheoriqueService: MaintheoriqueService,
               private modeService: ModeService,
               private normeProductiviteService: NormeProductiviteService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private toastr : ToastrService
+  ) {
   }
 
   ngOnInit() {
@@ -107,11 +110,13 @@ export class NormeproductiviteComponent  implements OnInit{
           next: value => {
             this.getNormProduct();
             this.totalItems = this.normesProductivites.length;
+            this.toastr.success("Norme De Productivité créé avec succès","Succès")
             this.resetForm();
           },
           error: err => {
             console.error('Error adding norme productivite:', err);
             console.log('Error response:', err.error);
+            this.toastr.error(err,"Erreur")
           }
         });
       } else {
@@ -119,7 +124,11 @@ export class NormeproductiviteComponent  implements OnInit{
           next: value => {
             this.getNormProduct();
             this.isEditMode = false;
+            this.toastr.info('Norme De Productivité mis à jour avec succès', 'Info');
             this.resetForm();
+          },
+          error : err => {
+            this.toastr.error(err,"Erreur");
           }
         });
       }
@@ -144,6 +153,7 @@ export class NormeproductiviteComponent  implements OnInit{
           if (this.normesProductivites.length === (this.p - 1) * 3 + 1 && this.p > 1) {
             this.p -= 1;
           }
+          this.toastr.info("Norme De Productivité supprimé avec succès","Succès")
         },
         error: err => {
           console.log(err);

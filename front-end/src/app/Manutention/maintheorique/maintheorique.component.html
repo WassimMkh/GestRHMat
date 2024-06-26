@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="material" role="tabpanel" aria-labelledby="material-tab">
+        <div class="tab-pane fade mb-3" id="material" role="tabpanel" aria-labelledby="material-tab">
           <div class="flex flex-col gap-4 p-5">
             <div formArrayName="equipements">
               <div *ngFor="let equipement of equipements.controls; let i = index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4">

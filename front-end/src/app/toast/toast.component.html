@@ -1,0 +1,6 @@
+<div class="toastBox">
+  <div *ngFor="let toast of toasts" class="toast" [ngClass]="toast.type">
+    <button class="close-btn" (click)="removeToast(toast)">X</button>
+    <div [innerHTML]="toast.message"></div>
+  </div>
+</div>

@@ -5,4 +5,6 @@ import org.hospital.modetravail.entities.ModeTravail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EquipeRepository extends JpaRepository<Equipe,Long> {
+
+    Boolean existsByNom(String nom);
 }

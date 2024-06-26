@@ -24,6 +24,10 @@
   cursor: pointer;
 }
 
+.navbar-right {
+  position: relative;
+}
+
 .logout-button {
   background: none;
   border: none;
@@ -31,10 +35,29 @@
   font-size: 1rem;
   cursor: pointer;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-.logout-button:hover {
-  color: black;
+
+.logout-text {
+  margin-left: 8px;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
 }
+
+.logout-button:hover .logout-text {
+  max-width: 125px;
+  opacity: 1;
+}
+
+.logout-button:hover svg {
+  fill: black;
+}
+
 
 .sidebar {
   width: 5rem;

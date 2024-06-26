@@ -91,3 +91,59 @@ body {
   max-width: 600px; /* Set the maximum width of the form */
   margin: auto; /* Center the form */
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: red;
+  padding: 1rem;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo img {
+  height: 2rem;
+  cursor: pointer;
+}
+
+.navbar-right {
+  position: relative;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.logout-text {
+  margin-left: 8px;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.logout-button:hover .logout-text {
+  max-width: 125px;
+  opacity: 1;
+}
+
+.logout-button:hover svg {
+  fill: black;
+}
+

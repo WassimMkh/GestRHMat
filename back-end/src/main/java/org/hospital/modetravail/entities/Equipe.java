@@ -20,6 +20,7 @@ public class Equipe {
     @OneToMany(mappedBy = "equipe")
     @JsonIgnore
     private Collection<Employe> employes;
-    @OneToOne
+    @OneToOne(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private ShiftPlan shiftPlan;
 }

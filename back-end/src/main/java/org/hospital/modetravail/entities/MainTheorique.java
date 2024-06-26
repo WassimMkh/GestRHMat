@@ -16,10 +16,11 @@ public class MainTheorique {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "nom",unique = true,length = 32)
     private String nom;
     @ManyToOne
     private TypeTrafic typeTrafic;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private Trafic trafics;
     @OneToMany(mappedBy = "mainTheorique")

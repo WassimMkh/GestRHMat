@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 html, body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
@@ -17,3 +18,5 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background: #E53517;
 }
+
+

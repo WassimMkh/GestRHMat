@@ -6,6 +6,7 @@ import {ModeTravailRequest} from "../../models/modetravail-request.model";
 import {ModetravailService} from "../../services/modetravail.service";
 import {ShiftplanService} from "../../services/shiftplan.service";
 import {ShiftplanRequestModel} from "../../models/shiftplan-request.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-planderoulement',
@@ -22,7 +23,8 @@ export class PlanDeRoulementComponent implements OnInit {
     private fb: FormBuilder,
     private equipeService: EquipeService,
     private modeTravailService: ModetravailService,
-    private shiftPlanService : ShiftplanService
+    private shiftPlanService : ShiftplanService,
+    private toastr : ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -68,10 +70,7 @@ export class PlanDeRoulementComponent implements OnInit {
   onSubmit() {
     this.formSubmitted = true;
     if (this.planDeRoulementForm.valid) {
-      const selectedEquipeId = this.planDeRoulementForm.get('equipe')?.value;
-      console.log(selectedEquipeId)
       const formData = this.planDeRoulementForm.value;
-      console.log(typeof formData.equipe)
       const shiftPlan: ShiftplanRequestModel = {
         periode: formData.modeDeTravail,
         dateDebut: formData.dateDebut,
@@ -80,18 +79,33 @@ export class PlanDeRoulementComponent implements OnInit {
         shift: formData.shift,
         equipeId: Number(formData.equipe)
       };
-      this.shiftPlanService.addShiftPlan(shiftPlan).subscribe({
-        next : value => {
-          console.log(value)
+      this.shiftPlanService.checkShiftPlanExists(shiftPlan.equipeId).subscribe({
+        next: (existingShiftPlan) => {
+            this.shiftPlanService.updateShiftPlan(existingShiftPlan.id, shiftPlan).subscribe({
+              next: (value) => {
+                this.toastr.info('Plan de roulement mis à jour avec succès', 'Info');
+                console.log('Response from server:', value);
+                this.onCancel()
+              },
+              error: (err) => {
+                console.error('Error updating shift plan', err);
+                this.toastr.error('Erreur lors de la mise à jour du plan de roulement', 'Erreur');
+              }
+            });
         },
-        error : err => {
-          console.log(err)
+        error: (err) => {
+          this.shiftPlanService.addShiftPlan(shiftPlan).subscribe({
+            next: (value) => {
+            },
+            error: (err) => {
+              this.toastr.success('Plan de roulement créé avec succès', 'Succès');
+              this.onCancel();
+            }
+          });
         }
-      })
-      console.log(shiftPlan)
+      });
     }
   }
-
   onCancel() {
     this.planDeRoulementForm.reset();
     this.formSubmitted = false;
@@ -99,5 +113,8 @@ export class PlanDeRoulementComponent implements OnInit {
 
   isFormInvalid() {
     return this.planDeRoulementForm.invalid;
+  }
+  updateShiftPlan() {
+
   }
 }

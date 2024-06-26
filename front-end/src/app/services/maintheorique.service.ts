@@ -26,6 +26,6 @@ export class MaintheoriqueService {
     return this.http.get<AccessoireRequestModel[]>(`${this.host}/equipementfamille/accessoir/${equipementFamilleId}`)
   }
   addMainTheorique(mainTheorique : mainTheoriqueRequest) {
-    return this.http.post(`${this.host}/cree-maintheorique`,mainTheorique,{responseType:"json"})
+    return this.http.post(`${this.host}/cree-maintheorique`,mainTheorique)
   }
 }

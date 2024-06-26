@@ -57,7 +57,14 @@ public class SecurityConfig {
                                 "/typetrafic/trafic/*",
                                 "/equipementfamille/equipement/*",
                                         "/equipementfamille/accessoir/{id}",
-                                        "/equipementfamille"
+                                        "/equipementfamille",
+                                        "equipes/{nom}",
+                                "/shiftplan/{id}",
+                                "/exist/*",
+                                "/employes",
+                                        "employes/delete/{id}",
+                                        "/cree_employe",
+                                        "/employes/{id}"
                                 )
                                 .permitAll()
                                 .anyRequest()

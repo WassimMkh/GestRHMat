@@ -9,6 +9,7 @@ import {EquipementRequestModel} from "../../models/equipement-request.model";
 import {AccessoireRequestModel} from "../../models/accessoire-request.model";
 import {traficRequest} from "../../models/trafic-request.model";
 import {mainTheoriqueRequest} from "../../models/maintheorique-request.model";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-maintheorique',
@@ -29,7 +30,8 @@ export class MaintheoriqueComponent implements OnInit{
     private fb: FormBuilder,
     private mainTheoriqueService: MaintheoriqueService,
     private traficService: TraficserviceService,
-    private typeTraficService: TypetraficService
+    private typeTraficService: TypetraficService,
+    private Toastr : ToastrService
   ) { }
 
   ngOnInit() {
@@ -94,19 +96,21 @@ export class MaintheoriqueComponent implements OnInit{
         id : 0,
         nom: formValues.nomMain,
         typeTraficIds: +formValues.typeTrafic,
-        traficIdstraficIds: [+formValues.trafic],
+        traficIds: +formValues.trafic,
         equipementFamilleIds: formValues.equipements.map((equip: any) => +equip.equipementFamille),
         equipementIds: formValues.equipements.map((equip: any) => +equip.equipement),
         accessoireIds: formValues.equipements.map((equip: any) => +equip.accessoire)
       };
+      console.log(mainTheorique)
       this.mainTheoriqueService.addMainTheorique(mainTheorique).subscribe({
         next : value => {
           console.log('Main Théorique added successfully', value);
           this.formSubmitted = true;
-          this.onCancel();  // Reset the form
+          this.Toastr.success("Main Théorique créé avec succès","Succès")
+          this.onCancel();
         }, error: err => {
           console.error('Error adding Main Théorique', err);
-          // Optionally show an error message to the user
+          this.Toastr.error(err,"Erreur");
         }
       })
     }

@@ -2,7 +2,7 @@ export interface mainTheoriqueRequest {
   id : number,
   nom : string,
   typeTraficIds : number,
-  traficIdstraficIds : number[],
+  traficIds : number,
   equipementFamilleIds : number[],
   equipementIds : number[],
   accessoireIds : number[]

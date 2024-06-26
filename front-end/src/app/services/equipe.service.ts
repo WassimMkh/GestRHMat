@@ -23,4 +23,8 @@ export class EquipeService {
   getEquipes() : Observable<EquipeRequestModel[]>{
     return this.http.get<EquipeRequestModel[]>(`${this.host}/equipes`)
   }
+  checkEquipeNom(equipeNom : string) : Observable<Boolean>{
+    return this.http.get<Boolean>(`${this.host}/equipes/${equipeNom}`,{responseType : "json"});
+  }
+
 }

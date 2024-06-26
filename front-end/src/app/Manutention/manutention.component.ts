@@ -1,6 +1,7 @@
 import {Component, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import {KeycloakService} from "../services/keycloak.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-manutention',
@@ -13,7 +14,8 @@ export class ManutentionComponent {
   sidebarOpen = false;
 
   constructor(private router: Router,
-              private keycloakService : KeycloakService) { }
+              private keycloakService : KeycloakService,
+              private toastr: ToastrService) { }
 
   navigateTo(route: string) {
     this.activeLink = route;
@@ -39,5 +41,8 @@ export class ManutentionComponent {
 
   onLogout() {
     this.keycloakService.logout();
+  }
+  showSuccess() {
+    this.toastr.success('Hello world!', 'Toastr fun!');
   }
 }
