@@ -14,18 +14,30 @@
   align-items: center;
 }
 
-.navbar-right {
+.menu-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.nav-logo {
   display: flex;
   align-items: center;
 }
 
-.nav-logo img {
-  height: 2rem;
+.nav-logo svg {
   cursor: pointer;
 }
 
+.nav-logo img {
+  height: 2rem;
+  margin-left: 15px;
+}
+
 .navbar-right {
-  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .logout-button {
@@ -57,7 +69,6 @@
 .logout-button:hover svg {
   fill: black;
 }
-
 
 .sidebar {
   width: 5rem;
@@ -92,7 +103,6 @@
   filter: grayscale(100%) opacity(0.7);
   transition: 600ms;
 }
-
 
 .nav-link:hover {
   filter: grayscale(0%) opacity(1);

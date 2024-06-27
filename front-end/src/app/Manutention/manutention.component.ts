@@ -13,21 +13,21 @@ export class ManutentionComponent {
   selectedTab: string = 'home';
   sidebarOpen = false;
 
-  constructor(private router: Router,
-              private keycloakService : KeycloakService,
-              private toastr: ToastrService) { }
+  constructor(private router: Router, private keycloakService: KeycloakService, private toastr: ToastrService) { }
 
   navigateTo(route: string) {
     this.activeLink = route;
-    console.log(this.activeLink)
     this.router.navigate([`manutention/${route}`]);
   }
+
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
+
   closeSidebar() {
     this.sidebarOpen = false;
   }
+
   @HostListener('document:click', ['$event'])
   onClick(event: Event) {
     const target = event.target as HTMLElement;
@@ -42,6 +42,7 @@ export class ManutentionComponent {
   onLogout() {
     this.keycloakService.logout();
   }
+
   showSuccess() {
     this.toastr.success('Hello world!', 'Toastr fun!');
   }

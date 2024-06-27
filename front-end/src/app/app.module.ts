@@ -58,7 +58,7 @@ export function kcFactory(kcService : KeycloakService)  {
     ToastrModule.forRoot({
       preventDuplicates : true,
       positionClass : 'toast-bottom-right',
-      timeOut : 2500,
+      timeOut : 100000,
       progressBar : true
     }),
   ],

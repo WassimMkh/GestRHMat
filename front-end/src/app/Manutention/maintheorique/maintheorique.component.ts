@@ -110,7 +110,7 @@ export class MaintheoriqueComponent implements OnInit{
           this.onCancel();
         }, error: err => {
           console.error('Error adding Main Théorique', err);
-          this.Toastr.error(err,"Erreur");
+          this.Toastr.error("Duplicate entry 'main 2' for key 'UK_lm6wnbiqtvywuwofcb8mo9n6g'","Erreur");
         }
       })
     }
