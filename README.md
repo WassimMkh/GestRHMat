@@ -1,23 +1,74 @@
-kifach nkhdmo had projet :
+# 🌐 Application de Gestion des Ressources – Marsa Maroc
 
-- Angular :
-  nworko 3la lfichier "package.json" :
-  <img width="317" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/333963b9-31c7-48c3-82ab-0171b4bc8c94">
-  khatla3 wahed l3ayba f jenb limen nworko 3liha 
-  <img width="357" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/58e6b64e-302d-444f-862d-d78f5d75b59a">
-  nworko 3la "front-end" b click droit :
-  ![image](https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/98a6b900-a4a0-4fbf-b5dc-322187195b37)
-  nkhtaro dik "Open In" :
-  ![image](https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/327bc78f-317f-4a18-ac19-e6fadf2a155c)
-  nkhtaro dik "Terminal" :
-  ![image](https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/30b9cb5f-51a9-4ce9-91af-e21cb0f04a9a)
-  khatla3 lik terminal ou nktbo ng serve :
-  <img width="948" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/7c03bf2a-2cd6-4d07-91ba-021d7dcf5ff5">
-  sf hahouwa projet angular khdem
+> 🎓 **Projet de Fin d’Études** réalisé au sein de **Marsa Maroc**
 
-- Spring :
-  nworko khir 3la hadi :
-  <img width="958" alt="image" src="https://github.com/WassimMkh/MARSA-MAROC/assets/145226366/3d7e1ce5-28c5-4219-a2d2-e39ee6be9517">
+Cette application web permet de gérer et suivre efficacement les affectations **prévisionnelles et réelles** des ressources humaines et matérielles dans les ports de Marsa Maroc, selon les prestations (manutention, marine, logistique, location). Elle est conçue avec des technologies modernes et intègre un système d’authentification sécurisé basé sur **Keycloak**.
 
+---
 
+## 🛠️ Stack technique
 
+- **Back-end** : Spring Boot (Java)
+- **Front-end** : Angular
+- **Authentification & Gestion des rôles** : Keycloak
+- **Base de données** : PostgreSQL
+- **Sécurité** : OAuth2 avec intégration Keycloak
+- **Interopérabilité** : Intégration avec HR Access et API PRO (matériel)
+
+---
+
+## 🎯 Objectifs de l’application
+
+- Planification prévisionnelle des affectations selon les **normes, l’organisation et les escales prévues**
+- Suivi des **écarts** entre la planification théorique et la réalisation
+- Affectations multi-opérations : **manutention, marine, logistique, location**
+- Suivi des réalisations : absences, arrêts, tonnage, mouvements
+- Interfaçage avec :
+  - **Contrôle de gestion** (optimisation des affectations)
+  - **Comptabilité analytique**
+  - **Système de calcul des primes de rendement**
+
+---
+
+## 🧩 Modules principaux
+
+1. **Paramétrage**
+   - Modes de travail, shifts, équipes
+   - Plans de roulement
+   - Main théorique (ressources nécessaires par prestation)
+   - Normes de productivité
+
+2. **Exploitation**
+   - Affectations prévisionnelles & réelles
+   - Liaison commande ↔ escale
+   - Suivi des absences, arrêts, tonnage
+   - Validation & clôture des escales
+
+3. **Administration**
+   - Gestion des comptes & profils
+   - Définition des droits par rôle
+   - Authentification centralisée avec Keycloak
+
+4. **Reporting**
+   - Extraction de données (états, tableaux, fichiers Excel)
+
+---
+
+## 👥 Rôles des utilisateurs
+
+- **Super Administrateur** : gestion globale
+- **Administrateur de port** : gestion des profils et utilisateurs d’un port
+- **Responsable prévision** : planification des affectations
+- **Responsable réalisation** : enregistrement des réalisations
+- **Responsable validation** : validation des affectations
+- **Utilisateur consultation** : lecture seule des données
+
+---
+
+## ⚙️ Installation & Lancement
+
+### 1. Cloner le projet
+
+```bash
+git clone https://github.com/votre-utilisateur/marsa-gestion-ressources.git
+cd marsa-gestion-ressources
