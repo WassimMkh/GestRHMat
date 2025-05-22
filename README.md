@@ -13,7 +13,6 @@ Cette application web permet de gérer et suivre efficacement les affectations *
 - **Authentification & Gestion des rôles** : Keycloak
 - **Base de données** : PostgreSQL
 - **Sécurité** : OAuth2 avec intégration Keycloak
-- **Interopérabilité** : Intégration avec HR Access et API PRO (matériel)
 
 ---
 
@@ -70,5 +69,5 @@ Cette application web permet de gérer et suivre efficacement les affectations *
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/votre-utilisateur/marsa-gestion-ressources.git
+git clone https://github.com/WassimMkh/GestRHMat.git
 cd marsa-gestion-ressources
