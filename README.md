@@ -24,8 +24,6 @@ Cette application web permet de gérer et suivre efficacement les affectations *
 - Suivi des réalisations : absences, arrêts, tonnage, mouvements
 - Interfaçage avec :
   - **Contrôle de gestion** (optimisation des affectations)
-  - **Comptabilité analytique**
-  - **Système de calcul des primes de rendement**
 
 ---
 
