@@ -68,4 +68,4 @@ Cette application web permet de gérer et suivre efficacement les affectations *
 
 ```bash
 git clone https://github.com/WassimMkh/GestRHMat.git
-cd marsa-gestion-ressources
+cd GestRHMat
